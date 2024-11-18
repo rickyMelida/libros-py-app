@@ -1,34 +1,24 @@
 {
-  "name": "libros-py-app",
+  "name": "next-base-project",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "@emotion/react": "^11.13.3",
-    "@emotion/styled": "^11.13.0",
-    "@mui/icons-material": "^6.1.7",
-    "@mui/material": "^6.1.7",
-    "@mui/types": "^7.2.19",
-    "@types/react-slick": "^0.23.13",
-    "@types/slick-carousel": "^1.6.40",
-    "bootstrap": "^5.3.3",
-    "next": "14.2.4",
-    "react": "^18",
-    "react-dom": "^18",
-    "react-slick": "^0.30.2",
-    "slick-carousel": "^1.8.1"
+    "react": "19.0.0-rc-66855b96-20241106",
+    "react-dom": "19.0.0-rc-66855b96-20241106",
+    "next": "15.0.3"
   },
   "devDependencies": {
+    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
-    "eslint-config-next": "14.2.4",
-    "typescript": "^5"
+    "eslint-config-next": "15.0.3"
   }
 }
