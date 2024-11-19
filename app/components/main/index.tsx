@@ -8,7 +8,7 @@ const index = ({title, section}: {title: string, section: string}) => {
                     <div>
                         <div className="row">
                             <div className="col-6 offset-0 col-md-3 offset-md-1 pt-2">
-                                <h5 id="recientes">{title}</h5>
+                                <h5 id={section}>{title}</h5>
                             </div>
                             <div className="col-4 offset-2 col-md-2 offset-md-6">
                                 <span className="text-right view-all">

@@ -3,7 +3,6 @@ import Image from "next/image";
 import bookIcon from "~/public/img/book.png";
 import favorite from "~/public/img/wish_list.svg";
 import message from "~/public/img/message.svg";
-import user from "~/public/img/user.svg";
 import logout from "~/public/img/logout-svgrepo-com.svg";
 
 const index = () => {
