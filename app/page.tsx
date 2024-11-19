@@ -10,12 +10,12 @@ export default function Home() {
     const images = [book1, book2, book3];
     return (
         <>
-            <Header />
+        
             <Carousel images={images} />
             <Main title="Lo mas destacado" section="destacados"/>
             <Main title="Lo mas reciente" section="recientes"/>
             <Main title="Otros libros" section="otros"/>
-            <Footer />
+        
         </>
     );
 }

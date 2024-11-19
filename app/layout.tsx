@@ -18,10 +18,11 @@ export default function RootLayout({
     return (
         <html lang="es">
             <body>
-          
+                <Header />
                 {children}
                 <BootstrapClient />
-           
+                <Footer />
+                <BootstrapClient />
             </body>
         </html>
     );
