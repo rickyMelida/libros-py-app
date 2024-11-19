@@ -1,10 +1,10 @@
 import Card from "@/components/common/Card";
 
-const index = ({title}: {title: string}) => {
+const index = ({title, section}: {title: string, section: string}) => {
     return (
         <>
             <div className="container-fluid mt-3">
-                <div className="row bg-light p-3" id="destacado">
+                <div className="row bg-light p-3" id={section}>
                     <div>
                         <div className="row">
                             <div className="col-6 offset-0 col-md-3 offset-md-1 pt-2">

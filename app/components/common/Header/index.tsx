@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const index = () => {
     return (
         <>
@@ -24,19 +26,18 @@ const index = () => {
                         >
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
-                                    <a
+                                    <Link
+                                        href="/"
                                         className="nav-link active"
                                         aria-current="page"
                                         id="home-item"
-                                        href=""
                                     >
                                         Home
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li className="nav-item dropdown">
                                     <a
                                         className="nav-link dropdown-toggle"
-                                        href="#"
                                         id="navbarDropdown"
                                         role="button"
                                         data-bs-toggle="dropdown"
@@ -49,45 +50,45 @@ const index = () => {
                                         aria-labelledby="navbarDropdown"
                                     >
                                         <li>
-                                            <a
+                                            <Link
                                                 className="dropdown-item"
                                                 id="highlighted-item"
-                                                href="#destacados"
+                                                href="/#destacados"
                                             >
                                                 Destacados
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a
+                                            <Link
                                                 className="dropdown-item"
                                                 id="recent-item"
-                                                href="#recientes"
+                                                href="/#recientes"
                                             >
                                                 Recientes
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
                                             <hr className="dropdown-divider" />
                                         </li>
                                         <li>
-                                            <a
+                                            <Link
                                                 className="dropdown-item"
                                                 id="others-item"
-                                                href="#otros"
+                                                href="/#otros"
                                             >
                                                 Otros
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
                                 </li>
                                 <li className="nav-item">
-                                    <a
+                                    <Link
+                                        href="/contact"
                                         className="nav-link"
                                         id="contacts-item"
-                                        href="./views/contacts.html"
                                     >
                                         Contactos
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li className="nav-item">
                                     <a
