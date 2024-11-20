@@ -93,7 +93,9 @@ const index = () => {
                 <br />
 
                 <strong className="m-2">Editorial: </strong>
-                <span className="text-primary py-1">SIN FRONTERAS</span>
+                <span className="py-1" style={{ color: "#03A964" }}>
+                  SIN FRONTERAS
+                </span>
                 <br />
                 <br />
 
@@ -145,7 +147,11 @@ const index = () => {
       <div className="row mb-5">
         <div className="col-12 col-md-6 mb-3">
           <div className="d-grid gap-2">
-            <button className="btn btn-primary" type="button">
+            <button
+              className="btn btn-primary"
+              type="button"
+              style={{ background: "#03A964", border: "1px solid #00C4CB" }}
+            >
               Confirmar Transaccion
             </button>
           </div>

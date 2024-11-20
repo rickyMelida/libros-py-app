@@ -2,7 +2,7 @@ import Image from "next/image";
 import avatar from "~/public/img/avatar.svg";
 import addBook from "~/public/img/bookPlus.svg";
 
-const profilePage = () => {
+const ProfilePage = () => {
     return (
         <>
             <div className="container">
@@ -82,4 +82,4 @@ const profilePage = () => {
     );
 };
 
-export default profilePage;
+export default ProfilePage;

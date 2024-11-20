@@ -1,7 +1,7 @@
 import CreateSession from '@/components/Auth/CreateSession';
 
-const createSessionPage = () => {
+const CreateSessionPage = () => {
   return <CreateSession />
 }
 
-export default createSessionPage;
+export default CreateSessionPage;

@@ -1,6 +1,6 @@
 import Card from "@/components/common/Card";
 
-const favoritePage = () => {
+const FavoritePage = () => {
     return (
         <>
             <div className="container">
@@ -22,4 +22,4 @@ const favoritePage = () => {
     );
 };
 
-export default favoritePage;
+export default FavoritePage;

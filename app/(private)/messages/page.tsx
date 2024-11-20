@@ -1,7 +1,7 @@
 import Message from '@/components/Message'
 
-const messagePage = () => {
+const MessagesPage = () => {
   return <Message />
 }
 
-export default messagePage;
+export default MessagesPage;

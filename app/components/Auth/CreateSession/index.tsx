@@ -1,57 +1,44 @@
-import Image from "next/image";
+import { v4 as uuid } from "uuid"
 import Link from "next/link";
-import logoLL from "~/public/img/webpeditor_libros-libres-logo.png";
+import { Title } from "./Title";
+import { FormFields } from "./FormFields";
+import { IFormElement } from "@/models/interfaces/IFormElement";
 
 const index = () => {
+  const inputProperties: IFormElement[] = [
+    {
+      id: "name",
+      type: "type",
+      name: "Nombre"
+    },
+    {
+      id: "email",
+      type: "email",
+      name: "Correo"
+    },
+    {
+     id: "password",
+     type: "password",
+     name: "Contraseña"
+    },
+    {
+      id: "password-confirm",
+      type: "password",
+      name: "Confirmar Contraseña"
+     }
+  ]
   return (
     <div className="container">
       <div className="row">
         <div className="col-md-4 offset-md-4">
-          <div className="row m-3">
-            <div className="col-md-12">
-              <div className="mx-auto text-center">
-                <Image src={logoLL} alt="" width="150" />
-              </div>
-            </div>
-          </div>
+          <Title/>
 
           <form className="border border-dark p-4">
-            <div className="form-group py-2">
-              <label htmlFor="name" className="font-weight-bold">
-                Nombre
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="name"
-                aria-describedby="emailHelp"
-                autoComplete="off"
-              />
-            </div>
-            <div className="form-group py-2">
-              <label htmlFor="email" className="font-weight-bold">
-                Correo
-              </label>
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                aria-describedby="emailHelp"
-                autoComplete="off"
-              />
-            </div>
-            <div className="form-group py-2">
-              <label htmlFor="password" className="font-weight-bold">
-                Contraseña
-              </label>
-              <input type="password" className="form-control" id="password" />
-            </div>
-            <div className="form-group py-2 pb-3">
-              <label htmlFor="password" className="font-weight-bold">
-                Confirmar Contraseña
-              </label>
-              <input type="password" className="form-control" id="password" />
-            </div>
+            {
+              inputProperties.map((element) => (
+                <FormFields inputProperty={element} key={uuid()}/>
+              ))
+            }
             <div className="d-grid gap-2">
               <button
                 type="submit"
