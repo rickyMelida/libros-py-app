@@ -3,6 +3,7 @@ import book from "~/public/img/books/libro1.jpg";
 import avatar from "~/public/img/avatar.svg";
 import bookmark from "~/public/img/bookmark.svg";
 import { v4 as uuidv4 } from "uuid";
+import Link from "next/link";
 
 const index = () => {
     return (
@@ -10,13 +11,15 @@ const index = () => {
             <div>
                 <div className="card" style={{ width: "18rem" }} id="book-8">
                     <div className={`id-${uuidv4()}`}>
-                        <Image
-                            src={book}
-                            className="card-img-top"
-                            height="350"
-                            loading="lazy"
-                            alt=""
-                        />
+                        <Link href="/book-detail/3">
+                            <Image
+                                src={book}
+                                className="card-img-top"
+                                height="350"
+                                loading="lazy"
+                                alt=""
+                            />
+                        </Link>
                     </div>
 
                     <div
@@ -53,24 +56,24 @@ const index = () => {
                             Obtener Libro
                         </button>
 
-                        <section className="mt-3">
+                        <section className="mt-4">
                             <span>
                                 <Image
                                     src={avatar}
                                     alt="Avatar"
                                     title="Rick"
                                     className="avatar"
-                                    width="10"
+                                    width="25"
                                     loading="lazy"
                                 />
                             </span>
 
-                            <span className="text-dark float-end pt-2 pr-3">
+                            <span className="text-dark float-end pr-3">
                                 <Image
                                     src={bookmark}
                                     title="Agregar como favorito"
                                     className="favourite"
-                                    width="35"
+                                    width="25"
                                     loading="lazy"
                                     alt=""
                                 />
