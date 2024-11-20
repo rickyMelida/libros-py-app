@@ -1,4 +1,6 @@
-import styles from "./index.module.css";
+import Image from 'next/image';
+import Link from 'next/link';
+import book from '~/public/img/book.png'
 
 const index = () => {
     return (
@@ -14,8 +16,8 @@ const index = () => {
                                         href="#"
                                         title="Inicio"
                                     >
-                                        <img
-                                            src="./img/book.png"
+                                        <Image
+                                            src={book}
                                             alt=""
                                             width="50"
                                         />
@@ -69,9 +71,9 @@ const index = () => {
                                     className="form-text text-muted d-flex justify-content-center"
                                 >
                                     ¿Eres nuevo por aqui? &nbsp; <br />
-                                    <a href="./logout.html">
+                                    <Link href="/create-session">
                                         Cree su cuenta en Change Books
-                                    </a>
+                                    </Link>
                                 </small>
                             </div>
                         </form>
