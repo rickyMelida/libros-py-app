@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Link from 'next/link';
-import book from "~/public/img/book.png";
+import Link from "next/link";
+import logoLL from "~/public/img/webpeditor_libros-libres-logo.png";
 
 const index = () => {
   return (
@@ -10,10 +10,7 @@ const index = () => {
           <div className="row m-3">
             <div className="col-md-12">
               <div className="mx-auto text-center">
-                <a className="navbar-brand" href="#" title="Inicio">
-                  <Image src={book} alt="" width="50" />
-                </a>
-                <h3>Change Books</h3>
+                <Image src={logoLL} alt="" width="150" />
               </div>
             </div>
           </div>
@@ -55,18 +52,24 @@ const index = () => {
               </label>
               <input type="password" className="form-control" id="password" />
             </div>
-            <button
-              type="button"
-              className="btn btn-dark text-ligth btn-lg btn-block "
-            >
-              Continuar
-            </button>
+            <div className="d-grid gap-2">
+              <button
+                type="submit"
+                className="btn btn-dark text-ligth"
+                style={{ background: "#03A964", border: "1px solid #00C4CB" }}
+              >
+                Continuar
+              </button>
+            </div>
 
             <div className="mt-4">
               <small id="emailHelp" className="form-text text-muted">
                 Al crear una cuenta, acepta las
-                <a href=""> Condiciones de uso y el Aviso de privacidad </a> de
-                Book Changes.
+                <a href="" style={{ fontWeight: "bold", color: "#03A964" }}>
+                  {" "}
+                  Condiciones de uso y el Aviso de privacidad{" "}
+                </a>{" "}
+                de Book Changes.
               </small>
             </div>
 
@@ -77,7 +80,12 @@ const index = () => {
                 className="form-text text-muted d-flex justify-content-center"
               >
                 Ya tienes una cuenta &nbsp;
-                <Link href="/login">Inicia Sesión</Link>
+                <Link
+                  href="/login"
+                  style={{ fontWeight: "bold", color: "#03A964" }}
+                >
+                  Inicia Sesión
+                </Link>
               </small>
             </div>
           </form>

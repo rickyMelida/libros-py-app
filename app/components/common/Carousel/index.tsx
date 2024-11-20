@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 const index = ({ images }: { images: StaticImageData[] }) => {
     return (
         <>
-            <div className="container">
+            <div className="container mt-5">
                 <div className="row">
                     <div className="col-3"></div>
                     <div className="col-7">

@@ -1,7 +1,7 @@
 import styles from "./index.module.css";
 import Image from "next/image";
 import avatarIcon from "~/public/img/avatar.svg";
-import sendIcon from "~/public/img/send.png";
+import sendIcon from "~/public/img/send-alt.png";
 
 const index = () => {
   return (
@@ -205,9 +205,14 @@ const index = () => {
           <hr />
           {/* <!--------------------  Chat  ----------------------------> */}
           <div className="row">
-            <div className={`col-md-12 m-2 overflow-auto ${styles["messages"]}`} id="message">
+            <div
+              className={`col-md-12 m-2 overflow-auto ${styles["messages"]}`}
+              id="message"
+            >
               <div className="m-2">
-                <p className={`${styles["bubble-chat"]} ${styles["chat-other"]}`}>
+                <p
+                  className={`${styles["bubble-chat"]} ${styles["chat-other"]}`}
+                >
                   Holiis
                   <cite className="d-block">Anahi 10:15</cite>
                 </p>
@@ -216,7 +221,9 @@ const index = () => {
                   Hola que tal?
                   <cite className="d-block">Tu 16:01</cite>
                 </p>
-                <p className={`${styles["bubble-chat"]} ${styles["chat-other"]}`}>
+                <p
+                  className={`${styles["bubble-chat"]} ${styles["chat-other"]}`}
+                >
                   Todo bien y vos?
                   <cite className="d-block">Anahi 16:11</cite>
                 </p>
@@ -230,11 +237,15 @@ const index = () => {
                   <cite className="d-block">Tu 16:15</cite>
                 </p>
 
-                <p className={`${styles["bubble-chat"]} ${styles["chat-other"]}`}>
+                <p
+                  className={`${styles["bubble-chat"]} ${styles["chat-other"]}`}
+                >
                   Nada
                   <cite className="d-block">Anahi 16:11</cite>
                 </p>
-                <p className={`${styles["bubble-chat"]} ${styles["chat-other"]}`}>
+                <p
+                  className={`${styles["bubble-chat"]} ${styles["chat-other"]}`}
+                >
                   y vos?
                   <cite className="d-block">Anahi 16:11</cite>
                 </p>
@@ -256,11 +267,18 @@ const index = () => {
                           autoComplete="off"
                         />
                       </div>
-                      <button type="button" className="btn btn-primary">
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        style={{
+                          background: "#03A964",
+                          border: "1px solid #00C4CB",
+                        }}
+                      >
                         <Image
                           src={sendIcon}
                           alt="Send"
-                          width="25"
+                          width="30"
                           id="btn-enviar"
                           title="Enviar"
                         />

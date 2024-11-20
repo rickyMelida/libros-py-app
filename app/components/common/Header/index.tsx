@@ -4,16 +4,20 @@ import bookIcon from "~/public/img/book.png";
 import favorite from "~/public/img/wish_list.svg";
 import message from "~/public/img/message.svg";
 import logout from "~/public/img/logout-svgrepo-com.svg";
+import logoLL from "~/public/img/webpeditor_libros-libres-logo.png";
 
 const index = () => {
   const authenticated = true;
   return (
     <>
       <header id="home">
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav
+          className="navbar navbar-expand-lg navbar-light"
+          style={{ background: "white", marginBottom: "-25px", marginTop: "-20px" }}
+        >
           <div className="container-fluid">
             <Link className="navbar-brand" href="/" title="Inicio">
-              <Image src={bookIcon} width={50} height={50} alt="" />
+              <Image src={logoLL} width={100} height={100} alt="" />
             </Link>
             <button
               className="navbar-toggler"
@@ -30,17 +34,7 @@ const index = () => {
               className="collapse navbar-collapse"
               id="navbarSupportedContent"
             >
-              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                <li className="nav-item">
-                  <Link
-                    href="/"
-                    className="nav-link active"
-                    aria-current="page"
-                    id="home-item"
-                  >
-                    Home
-                  </Link>
-                </li>
+              <ul className="navbar-nav me-auto mb-2 mb-lg-0" style={{marginLeft: "-30px"}}>
                 <li className="nav-item dropdown">
                   <a
                     className="nav-link dropdown-toggle"
