@@ -52,7 +52,7 @@ const index = () => {
                         <button
                             type="button"
                             className="btn btn-success btn-lg btn-block w-100 btn-contact"
-                            style={{ background: "#03A964", border: "1px solid #00C4CB" }}
+                            style={{ background: "#E65C35", border: "1px solid #332211" }}
                         >
                             Obtener Libro
                         </button>

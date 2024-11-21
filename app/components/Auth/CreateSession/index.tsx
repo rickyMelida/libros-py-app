@@ -43,7 +43,7 @@ const index = () => {
               <button
                 type="submit"
                 className="btn btn-dark text-ligth"
-                style={{ background: "#03A964", border: "1px solid #00C4CB" }}
+                style={{ background: "#E65C35", border: "1px solid #00C4CB" }}
               >
                 Continuar
               </button>
@@ -52,7 +52,7 @@ const index = () => {
             <div className="mt-4">
               <small id="emailHelp" className="form-text text-muted">
                 Al crear una cuenta, acepta las
-                <a href="" style={{ fontWeight: "bold", color: "#03A964" }}>
+                <a href="" style={{ fontWeight: "bold", color: "#E65C35" }}>
                   {" "}
                   Condiciones de uso y el Aviso de privacidad{" "}
                 </a>{" "}
@@ -69,7 +69,7 @@ const index = () => {
                 Ya tienes una cuenta &nbsp;
                 <Link
                   href="/login"
-                  style={{ fontWeight: "bold", color: "#03A964" }}
+                  style={{ fontWeight: "bold", color: "#E65C35" }}
                 >
                   Inicia Sesión
                 </Link>

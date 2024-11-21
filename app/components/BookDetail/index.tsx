@@ -93,7 +93,7 @@ const index = () => {
                 <br />
 
                 <strong className="m-2">Editorial: </strong>
-                <span className="py-1" style={{ color: "#03A964" }}>
+                <span className="py-1" style={{ color: "#E65C35" }}>
                   SIN FRONTERAS
                 </span>
                 <br />
@@ -150,7 +150,7 @@ const index = () => {
             <button
               className="btn btn-primary"
               type="button"
-              style={{ background: "#03A964", border: "1px solid #00C4CB" }}
+              style={{ background: "#E65C35", border: "1px solid #00C4CB" }}
             >
               Confirmar Transaccion
             </button>

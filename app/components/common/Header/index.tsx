@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import bookIcon from "~/public/img/book.png";
+import bookIcon from "~/public/img/Gemini_logo.jpeg";
 import favorite from "~/public/img/wish_list.svg";
 import message from "~/public/img/message.svg";
 import logout from "~/public/img/logout-svgrepo-com.svg";
@@ -17,7 +17,7 @@ const index = () => {
         >
           <div className="container-fluid">
             <Link className="navbar-brand" href="/" title="Inicio">
-              <Image src={logoLL} width={100} height={100} alt="" />
+              <Image src={bookIcon} width={100} height={100} alt="" />
             </Link>
             <button
               className="navbar-toggler"

@@ -4,7 +4,7 @@ export const Button = () => {
       <button
         className="btn btn-primary"
         type="button"
-        style={{ background: "#03A964", border: "1px solid #00C4CB" }}
+        style={{ background: "#E65C35", border: "1px solid #00C4CB" }}
       >
         Button
       </button>

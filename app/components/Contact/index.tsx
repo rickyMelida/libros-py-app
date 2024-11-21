@@ -49,7 +49,7 @@ const index = () => {
               <button
                 className="btn btn-primary"
                 type="submit"
-                style={{ background: "#03A964", border: "1px solid #00C4CB" }}
+                style={{ background: "#E65C35", border: "1px solid #00C4CB" }}
               >
                 Enviar
               </button>

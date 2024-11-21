@@ -271,14 +271,14 @@ const index = () => {
                         type="button"
                         className="btn btn-primary"
                         style={{
-                          background: "#03A964",
-                          border: "1px solid #00C4CB",
+                          background: "#E65C35",
+                          border: "1px solid #fff",
                         }}
                       >
                         <Image
                           src={sendIcon}
                           alt="Send"
-                          width="30"
+                          width="25"
                           id="btn-enviar"
                           title="Enviar"
                         />

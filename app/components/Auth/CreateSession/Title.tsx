@@ -1,9 +1,9 @@
 import Image from "next/image";
-import logoLL from "~/public/img/webpeditor_libros-libres-logo.png";
+import logoLL from "~/public/img/Gemini_logo.jpeg";
 
 export const Title = () => {
   return (
-    <div className="row m-3">
+    <div className="row mx-3">
       <div className="col-md-12">
         <div className="mx-auto text-center">
           <Image src={logoLL} alt="" width="150" />
