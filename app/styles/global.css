@@ -3,3 +3,18 @@
 .book-author {
   color: #E65C35 !important;
 }
+
+@media(max-width: 992px) {
+  .navbar-collapse {
+    margin-left: 50px;
+  }
+
+  .icon-users {
+    display: none;
+  }
+
+  #navbarSupportedContent form {
+    width: 200px;
+    margin-left: -35px;
+  }
+}
