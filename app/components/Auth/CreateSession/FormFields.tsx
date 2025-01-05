@@ -1,41 +1,44 @@
 import { IFormElement } from "@/models/interfaces/IFormElement";
+import { ChangeEventHandler } from "react";
 
 export const FormFields = ({
   inputProperty,
+  onChange
 }: {
   inputProperty: IFormElement;
+  onChange: ChangeEventHandler<HTMLInputElement>
 }) => {
   const { type } = inputProperty;
 
   return (
     <>
       {type == "text" || type == "email"
-        ? textOrEmailInput(inputProperty)
-        : passwordInput(inputProperty)}
+        ? textOrEmailInput(inputProperty, onChange)
+        : passwordInput(inputProperty, onChange)}
     </>
   );
 };
 
-const passwordInput = (inputProperty: IFormElement) => {
+const passwordInput = (inputProperty: IFormElement, onHandleChange: ChangeEventHandler<HTMLInputElement>) => {
   const { name, id, type } = inputProperty;
   return (
     <div className="form-group py-2">
       <label htmlFor={id} className="font-weight-bold">
         {name}
       </label>
-      <input type={type} className="form-control" id={id} />
+      <input type={type} className="form-control" id={id} onChange={onHandleChange} />
     </div>
   );
 };
 
-const textOrEmailInput = (inputProperty: IFormElement) => {
+const textOrEmailInput = (inputProperty: IFormElement, onHandleChange: ChangeEventHandler<HTMLInputElement>) => {
   const { name, type, id } = inputProperty;
   return (
     <div className="form-group py-2">
       <label htmlFor={id} className="font-weight-bold">
         {name}
       </label>
-      <input type={type} className="form-control" id={id} autoComplete="off" />
+      <input type={type} className="form-control" id={id} onChange={onHandleChange} autoComplete="off" />
     </div>
   );
 };

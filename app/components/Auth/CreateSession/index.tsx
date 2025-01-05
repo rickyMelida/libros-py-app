@@ -3,30 +3,46 @@ import Link from "next/link";
 import { Title } from "./Title";
 import { FormFields } from "./FormFields";
 import { IFormElement } from "@/models/interfaces/IFormElement";
+import { IOnHandle } from "@/models/interfaces/IOnHandle";
 
 const index = () => {
   const inputProperties: IFormElement[] = [
     {
       id: "name",
       type: "type",
-      name: "Nombre"
+      name: "Nombre",
+      optional: false
     },
     {
       id: "email",
       type: "email",
-      name: "Correo"
+      name: "Correo",
+      optional: false
+    },
+    {
+      id: "phone",
+      type: "text",
+      name: "Teléfono",
+      optional: true
     },
     {
      id: "password",
      type: "password",
-     name: "Contraseña"
+     name: "Contraseña",
+     optional: false
     },
     {
       id: "password-confirm",
       type: "password",
-      name: "Confirmar Contraseña"
+      name: "Confirmar Contraseña",
+      optional: false
      }
   ]
+
+  const getDataFromForm = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.value)
+  }
+  
   return (
     <div className="container">
       <div className="row">
@@ -36,7 +52,7 @@ const index = () => {
           <form className="border border-dark p-4">
             {
               inputProperties.map((element) => (
-                <FormFields inputProperty={element} key={uuid()}/>
+                <FormFields inputProperty={element} key={uuid()} onChange={getDataFromForm}/>
               ))
             }
             <div className="d-grid gap-2">
