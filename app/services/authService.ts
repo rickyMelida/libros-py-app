@@ -5,10 +5,11 @@ import {
     signOut,
     createUserWithEmailAndPassword,
     User,
+    GoogleAuthProvider, signInWithPopup
 } from "firebase/auth";
 import { auth } from "@/firebaseConfig";
 
-export const login = async (credential: ICredential): Promise<User | null> => {
+export const loginByEmail = async (credential: ICredential): Promise<User | null> => {
     const { email, password } = credential;
 
     try {
@@ -22,6 +23,17 @@ export const login = async (credential: ICredential): Promise<User | null> => {
         console.error("Error logging in:", error);
         return null;
     }
+};
+
+const googleProvider = new GoogleAuthProvider();
+
+export const signInWithGoogle = async () => {
+  try {
+    const result = await signInWithPopup(auth, googleProvider);
+    return result.user;
+  } catch (error) {
+    console.error("Error al autenticar con Google:", error);
+  }
 };
 
 export const register = async (

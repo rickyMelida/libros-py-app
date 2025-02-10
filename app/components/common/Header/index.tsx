@@ -1,10 +1,18 @@
+"use client";
+
 import Link from "next/link";
+import googleIcon from "~/public/img/google.png";
+import facebookIcon from "~/public/img/facebook.svg";
+import messageIcon from "~/public/img/message.png";
 import Image from "next/image";
 import bookIcon from "~/public/img/Gemini_logo.jpeg";
 import favorite from "~/public/img/wish_list.svg";
 import message from "~/public/img/message.svg";
 import logout from "~/public/img/logout-svgrepo-com.svg";
 import logoLL from "~/public/img/webpeditor_libros-libres-logo.png";
+import { Button, Modal } from "react-bootstrap";
+import { useState } from "react";
+import { signInWithGoogle } from "@/services/authService";
 
 const index = () => {
   const authenticated = true;
@@ -13,7 +21,11 @@ const index = () => {
       <header id="home">
         <nav
           className="navbar navbar-expand-lg navbar-light"
-          style={{ background: "white", marginBottom: "-25px", marginTop: "-20px" }}
+          style={{
+            background: "white",
+            marginBottom: "-25px",
+            marginTop: "-20px",
+          }}
         >
           <div className="container-fluid">
             <Link className="navbar-brand" href="/" title="Inicio">
@@ -34,7 +46,10 @@ const index = () => {
               className="collapse navbar-collapse"
               id="navbarSupportedContent"
             >
-              <ul className="navbar-nav me-auto mb-2 mb-lg-0" style={{marginLeft: "-30px"}}>
+              <ul
+                className="navbar-nav me-auto mb-2 mb-lg-0"
+                style={{ marginLeft: "-30px" }}
+              >
                 <li className="nav-item dropdown">
                   <a
                     className="nav-link dropdown-toggle"
@@ -173,6 +188,10 @@ const unAuthenticatedSection = () => {
 };
 
 const unAuthenticatedIconSection = () => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <>
       <div className="icon-users">
@@ -196,18 +215,60 @@ const unAuthenticatedIconSection = () => {
             <Image src={message} width="30" alt="message" loading="lazy" />
           </Link>
         </span>
-        <span className="mx-3 icon" style={{ cursor: "pointer" }}>
-          <Link href="/login">
-            <Image
-              id="messages-item"
-              title="Cerrar Sesion"
-              src={logout}
-              width="30"
-              alt="Cerrar Sesion"
-              loading="lazy"
-            />
-          </Link>
+        <span className="mx-3 icon" style={{ cursor: "pointer" }} onClick={handleShow}>
+          <Image
+            id="messages-item"
+            title="Cerrar Sesion"
+            src={logout}
+            width="30"
+            alt="Cerrar Sesion"
+            loading="lazy"
+          />
+          
         </span>
+        <Modal
+            show={show}
+            onHide={handleClose}
+            backdrop="static"
+            keyboard={false}
+            centered
+          >
+            <Modal.Header closeButton>
+            </Modal.Header>
+            <Modal.Body className="my-5">
+            <div className="row text-center">
+                <div className="col-8 offset-2 py-1 my-2 border border-dark rounded-3 btn btn-light"  onClick={signInWithGoogle}>
+                  <Image
+                    src={googleIcon}
+                    alt="Google Icon"
+                    width={20}
+                    height={20}
+                  />
+                  <span className="mx-2">Inicia Sesion con Google</span>
+                </div>
+                <div className="col-8 offset-2 py-1 my-2 border border-dark rounded-3 btn btn-light">
+                  <Image
+                    src={facebookIcon}
+                    alt="Google Icon"
+                    width={20}
+                    height={20}
+                  />
+                  <span className="mx-2">Inicia Sesion con Facebook</span>
+                </div>
+                <div className="col-8 offset-2 py-1 my-2 border border-dark rounded-3 btn btn-light">
+                <Link href="/login" style={{ textDecoration: "none", color: "inherit" }}>
+                  <Image
+                  src={messageIcon}
+                  alt="Google Icon"
+                  width={20}
+                  height={20}
+                  />
+                  <span className="mx-2">Inicia Sesion con Email</span>
+                  </Link>
+                </div>
+              </div>
+            </Modal.Body>
+          </Modal>
       </div>
     </>
   );
