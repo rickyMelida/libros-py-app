@@ -9,13 +9,14 @@ import bookIcon from "~/public/img/Gemini_logo.jpeg";
 import favorite from "~/public/img/wish_list.svg";
 import message from "~/public/img/message.svg";
 import logout from "~/public/img/logout-svgrepo-com.svg";
-import logoLL from "~/public/img/webpeditor_libros-libres-logo.png";
 import { Button, Modal } from "react-bootstrap";
 import { useState } from "react";
-import { signInWithGoogle } from "@/services/authService";
+import { signInWithFacebook, signInWithGoogle } from "@/services/authService";
+
 
 const index = () => {
-  const authenticated = true;
+  const authenticated = false;
+  
   return (
     <>
       <header id="home">
@@ -246,7 +247,7 @@ const unAuthenticatedIconSection = () => {
                   />
                   <span className="mx-2">Inicia Sesion con Google</span>
                 </div>
-                <div className="col-8 offset-2 py-1 my-2 border border-dark rounded-3 btn btn-light">
+                <div className="col-8 offset-2 py-1 my-2 border border-dark rounded-3 btn btn-light" onClick={signInWithFacebook}>
                   <Image
                     src={facebookIcon}
                     alt="Google Icon"
