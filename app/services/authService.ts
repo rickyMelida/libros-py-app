@@ -13,6 +13,7 @@ import {
 } from "firebase/auth";
 import { auth } from "@/firebaseConfig";
 import axios from "axios";
+import { IUserCredential } from "@/models/interfaces/IUserCredential";
 
 export const loginByEmail = async (
   credential: ICredential
@@ -38,7 +39,7 @@ export const signInWithGoogle = async () => {
   try {
     const result: any = await signInWithPopup(auth, googleProvider);
     const user = {
-      id: 2,
+      id: 0,
       name: result.user.displayName,
       email: result.user.email,
       phone: result.user.phoneNumber,
@@ -87,7 +88,7 @@ export const signInWithFacebook = async () => {
 };
 
 export const register = async (
-  credential: ICredential
+  credential: IUserCredential
 ): Promise<User | null> => {
   const { email, password } = credential;
   try {

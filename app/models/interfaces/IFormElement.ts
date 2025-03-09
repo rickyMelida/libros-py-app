@@ -5,4 +5,5 @@ export interface IFormElement {
   placeholder?: string;
   data?: string[]
   optional?: boolean;
+  value?: string;
 }
