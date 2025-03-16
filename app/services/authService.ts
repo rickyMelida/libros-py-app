@@ -11,7 +11,7 @@ import {
   UserCredential,
   signInWithCustomToken,
 } from "firebase/auth";
-import { auth } from "@/firebaseConfig";
+import { auth } from "@/services/firebaseConfig";
 import axios from "axios";
 import { IUserCredential } from "@/models/interfaces/IUserCredential";
 

@@ -5,7 +5,7 @@ import Footer from "@/components/common/Footer";
 import Header from "@/components/common/Header";
 
 import type { Metadata } from "next";
-import { Provider } from "react-redux";
+import Providers from "./providers";
 
 export const metadata: Metadata = {
   title: "Libros Libre PY",
@@ -19,7 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

@@ -3,22 +3,35 @@
 import Link from "next/link";
 import Image from "next/image";
 import bookIcon from "~/public/img/Gemini_logo.jpeg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AuthenticatedSection from "@/components/Auth/HeaderAuthSection/AuthenticatedSection";
 import AuthenticatedIconSection from "@/components/Auth/HeaderAuthSection/AuthenticatedIconSection";
 import UnAuthenticatedIconSection from "@/components/Auth/HeaderAuthSection/UnAuthenticatedIconSection";
 import ModalLogin from "@/components/Auth/HeaderAuthSection/ModalLogin";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/redux/slices/userSlice";
+import { useAuth } from "@/hooks/useAuth";
 
 const index = () => {
-  const [authenticated, setAuthenticated] = useState<boolean>(false);
+  const { isAuthenticated, data } = useAuth();
   const [showModal, setShowModal] = useState<boolean>(false);
+  const dispatch = useDispatch();
 
-  const handleModalAuth = (value: boolean, token: any) => {
-    console.log({value, token});
-    
-    setShowModal(value);
-    setAuthenticated(token);
-  }
+  const handleModalAuth = (value: boolean) => setShowModal(value);
+
+  useEffect(() => {
+    if (isAuthenticated && data) {
+      dispatch(
+        setUser({
+          name: data.name,
+          email: data.email,
+          phoneNumber: data["phone_number"],
+          picture: data.picture,
+          userId: data.uid,
+        })
+      );
+    }
+  }, [isAuthenticated]);
 
   return (
     <>
@@ -105,7 +118,7 @@ const index = () => {
                     Contactos
                   </Link>
                 </li>
-                {authenticated ? <AuthenticatedSection /> : ""}
+                {isAuthenticated ? <AuthenticatedSection /> : ""}
               </ul>
               <form className="d-flex">
                 <input
@@ -123,7 +136,7 @@ const index = () => {
                   Buscar
                 </button>
               </form>
-              {authenticated ? (
+              {isAuthenticated ? (
                 <AuthenticatedIconSection handleValue={handleModalAuth} />
               ) : (
                 <UnAuthenticatedIconSection handleValue={handleModalAuth} />
@@ -132,7 +145,7 @@ const index = () => {
           </div>
         </nav>
       </header>
-      <ModalLogin value={showModal} handleValue={handleModalAuth}/>
+      <ModalLogin value={showModal} handleValue={handleModalAuth} />
     </>
   );
 };
