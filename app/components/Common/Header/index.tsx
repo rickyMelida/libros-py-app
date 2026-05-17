@@ -8,7 +8,6 @@ import messageIcon from "~/public/img/message.svg";
 import favoriteIcon from "~/public/img/wish_list.svg";
 import { useEffect, useState } from "react";
 import AuthenticatedSection from "@/components/Auth/HeaderAuthSection/AuthenticatedSection";
-import AuthenticatedIconSection from "@/components/Auth/HeaderAuthSection/AuthenticatedIconSection";
 import UnAuthenticatedIconSection from "@/components/Auth/HeaderAuthSection/UnAuthenticatedIconSection";
 import ModalLogin from "@/components/Auth/HeaderAuthSection/ModalLogin";
 import { useAuth } from "@/hooks/useAuth";
@@ -61,7 +60,14 @@ const Index = () => {
 									</ul>
 								</li>
 								<li className="nav-item">
-									<a className="nav-link" id="contacts-item" href="./views/contacts.html">Contactos</a>
+									<Link
+										id="contact-item"
+										title="Contacto"
+										href="/contact"
+										className="nav-link"
+									>
+										Contacto
+									</Link>
 								</li>
 								{isAuthenticated && (
 									<li className="nav-item">
@@ -75,8 +81,13 @@ const Index = () => {
 										</Link>
 									</li>
 								)}
+								{isAuthenticated ? (
+									<AuthenticatedSection />
+								) : (
+									<UnAuthenticatedIconSection />
+								)}
 							</ul>
-							<form className="d-flex">
+							<form className="d-flex m-2" role="search">
 								<input
 									className="form-control me-2"
 									type="search"
@@ -86,11 +97,7 @@ const Index = () => {
 								/>
 								<button className="btn btn-outline-success" type="button" id="btn-search">Buscar</button>
 							</form>
-							{isAuthenticated ? (
-								<AuthenticatedIconSection />
-							) : (
-								<UnAuthenticatedIconSection />
-							)}
+
 						</div>
 					</div>
 				</nav>

@@ -19,7 +19,7 @@
     "firebase": "^11.1.0",
     "firebase-admin": "^13.2.0",
     "lucide-react": "^1.16.0",
-    "next": "15.0.7",
+    "next": "15.5.16",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-bootstrap": "^2.10.9",
     "react-dom": "19.0.0-rc-66855b96-20241106",
@@ -37,10 +37,17 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
-    "eslint-config-next": "15.0.3",
+    "eslint-config-next": "15.5.16",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "ts-node": "^10.9.2",
     "typescript": "^5"
+  },
+  "pnpm": {
+    "overrides": {
+      "protobufjs": "7.5.6",
+      "@protobufjs/utf8": "1.1.1",
+      "fast-xml-builder": "1.1.7"
+    }
   }
 }

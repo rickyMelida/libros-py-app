@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const Index = () => {
 	return (
-		<div className="card" id="6" style={{ width: "18rem" }}>
+		<div className="card" id="6">
 			<div className={`id-${uuidv4()}`}>
 				<Link href="/book-detail/3">
 					<Image

@@ -1,31 +1,18 @@
-import logout from "~/public/img/logout-svgrepo-com.svg";
-import IHandle from "@/models/propsInterfaces/IHandle";
-import Image from "next/image";
 import React from "react";
-import { redirect } from "next/navigation";
+import Link from "next/link";
 
 const UnAuthenticatedIconSection = () => {
-	const handle = () => {
-		redirect("/login");
-	}
-
 	return (
-		<div className="icon-users">
-			<span
-				className="mx-3 icon"
-				style={{ cursor: "pointer" }}
-				onClick={handle}
+		<li className="d-flex">
+			<Link
+				id="login-item"
+				title="Login"
+				href="/login"
+				className="nav-link"
 			>
-				<Image
-					id="messages-item"
-					title="Iniciar Sesión"
-					src={logout}
-					width="30"
-					alt="Iniciar Sesión"
-					loading="lazy"
-				/>
-			</span>
-		</div>
+				Iniciar Sesión
+			</Link>
+		</li>
 	);
 };
 

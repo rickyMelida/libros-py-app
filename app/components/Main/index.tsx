@@ -10,16 +10,16 @@ const Index = ({ title, section }: { title: string, section: string }) => {
 						<a href="./views/unauthorized.html" className="view-all-link">Ver todos →</a>
 					</div>
 					<hr className="col-12 line-horizontal mb-3" />
-					<div className="col-10 offset-2 col-sm-9 offset-sm-3 col-md-5 offset-md-1 col-xl-3 offset-xl-0 py-3">
+					<div className="col-10 offset-1 col-sm-9 offset-sm-3 col-md-5 offset-md-1 col-xl-3 offset-xl-0 py-3">
 						<Card />
 					</div>
-					<div className="col-10 offset-2 col-sm-9 offset-sm-3 col-md-5 offset-md-1 col-xl-3 offset-xl-0 py-3">
+					<div className="col-10 offset-1 col-sm-9 offset-sm-3 col-md-5 offset-md-1 col-xl-3 offset-xl-0 py-3">
 						<Card />
 					</div>
-					<div className="col-10 offset-2 col-sm-9 offset-sm-3 col-md-5 offset-md-1 col-xl-3 offset-xl-0 py-3">
+					<div className="col-10 offset-1 col-sm-9 offset-sm-3 col-md-5 offset-md-1 col-xl-3 offset-xl-0 py-3">
 						<Card />
 					</div>
-					<div className="col-10 offset-2 col-sm-9 offset-sm-3 col-md-5 offset-md-1 col-xl-3 offset-xl-0 py-3">
+					<div className="col-10 offset-1 col-sm-9 offset-sm-3 col-md-5 offset-md-1 col-xl-3 offset-xl-0 py-3">
 						<Card />
 					</div>
 				</div>
