@@ -1,0 +1,101 @@
+/* ── index.css — Hero carousel + secciones de libros ─── */
+
+/* Carousel */
+.carousel-inner {
+  height: 72vh;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  overflow: hidden;
+}
+
+.carousel-item {
+  background: linear-gradient(135deg, #0f2517 0%, #1a6b4a 100%);
+  height: 72vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-item img {
+  max-width: 420px;
+  max-height: 60vh;
+  height: auto;
+  margin: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,.4));
+  animation: floatBook 5s ease-in-out infinite;
+}
+
+@keyframes floatBook {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 48px;
+  height: 48px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,.15);
+  border-radius: 50%;
+  margin: 0 1rem;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,.2);
+  transition: background var(--transition);
+}
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background: rgba(255,255,255,.3);
+}
+
+/* Sección de libros */
+.books-section {
+  background: var(--clr-surface);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  margin: 1.5rem 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  box-shadow: var(--shadow-sm);
+}
+
+.books-section-alt {
+  background: var(--clr-primary-light);
+}
+
+.view-all {
+  font-size: .875rem;
+  font-weight: 600;
+}
+.view-all a {
+  color: var(--clr-primary) !important;
+  font-weight: 600;
+  transition: letter-spacing var(--transition);
+}
+.view-all a:hover { letter-spacing: .03em; }
+
+.bg-recent {
+  background-color: var(--clr-primary-light) !important;
+}
+
+.line-horizontal {
+  background: linear-gradient(90deg, var(--clr-primary) 0%, transparent 100%);
+  height: 2px;
+  border: none;
+  border-radius: 2px;
+}
+
+/* Card en secciones */
+.card {
+  cursor: pointer;
+  background: var(--clr-surface);
+}
+
+@media (max-width: 768px) {
+  .carousel-inner,
+  .carousel-item { height: 50vh; }
+
+  .carousel-item img { max-width: 240px; }
+
+  .card { margin: 10px 0; }
+}

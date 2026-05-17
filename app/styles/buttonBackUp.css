@@ -1,0 +1,48 @@
+/* ── buttonBackUp.css — Botón flotante volver arriba ── */
+
+#button-up {
+  background-color: var(--clr-primary);
+  width: 48px;
+  height: 48px;
+  text-align: center;
+  border-radius: 50%;
+  bottom: 36px;
+  right: 36px;
+  transition: background var(--transition), opacity var(--transition),
+              visibility var(--transition), transform var(--transition),
+              box-shadow var(--transition);
+  opacity: 0;
+  visibility: hidden;
+  z-index: 999;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+}
+
+#button-up span {
+  font-weight: 700;
+  font-style: normal;
+  font-size: 1.2rem;
+  line-height: 1;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#button-up:hover {
+  background-color: var(--clr-primary-hover);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+}
+
+#button-up:active {
+  transform: scale(.94);
+}
+
+#button-up.show {
+  opacity: 1;
+  visibility: visible;
+}

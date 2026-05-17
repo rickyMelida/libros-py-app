@@ -1,19 +1,13 @@
 import { ICredential } from "@/models/interfaces/ICredential";
+import { User } from "@supabase/supabase-js"
 
 import {
-  signInWithEmailAndPassword,
-  signOut,
-  createUserWithEmailAndPassword,
-  User,
   GoogleAuthProvider,
-  FacebookAuthProvider,
-  signInWithPopup,
-  UserCredential,
-  signInWithCustomToken,
+  FacebookAuthProvider
 } from "firebase/auth";
-import { auth } from "@/services/firebaseConfig";
 import axios from "axios";
 import { IUserCredential } from "@/models/interfaces/IUserCredential";
+import { createClient } from "@/lib/supabase/client";
 
 export const loginByEmail = async (
   credential: ICredential
@@ -21,14 +15,18 @@ export const loginByEmail = async (
   const { email, password } = credential;
 
   try {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    return userCredential.user;
-  } catch (error) {
-    console.error("Error logging in:", error);
+	const supebase = createClient();
+	const { data, error } = await supebase.auth.signInWithPassword({ email, password });
+	console.log({data, error});
+	if(error) 
+		return null;
+	
+	
+	return data.user;
+	
+} catch (error) {
+	  console.log({email, password})
+    console.log("Error logging in:", error);
     return null;
   }
 };
@@ -37,7 +35,7 @@ const googleProvider = new GoogleAuthProvider();
 
 export const signInWithGoogle = async () => {
   try {
-    const result: any = await signInWithPopup(auth, googleProvider);
+    const result: any = {};//await signInWithPopup(auth, googleProvider);
     const user = {
       id: 0,
       name: result.user.displayName,
@@ -80,8 +78,9 @@ export const signInWithGoogle = async () => {
 const facebookProvider = new FacebookAuthProvider();
 export const signInWithFacebook = async () => {
   try {
-    const result = await signInWithPopup(auth, facebookProvider);
-    return result.user;
+    //const result = await signInWithPopup(auth, facebookProvider);
+    //return result.user;
+    return null;
   } catch (error) {
     console.error("Error al autenticar con Facebook: ", error);
   }
@@ -92,12 +91,12 @@ export const register = async (
 ): Promise<User | null> => {
   const { email, password } = credential;
   try {
-    const userCredential = await createUserWithEmailAndPassword(
+    /*const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
       password
-    );
-    return userCredential.user;
+    );*/
+    return null;
   } catch (error) {
     console.error("Error registering:", error);
     return null;
@@ -106,7 +105,9 @@ export const register = async (
 
 export const logout = async (): Promise<void> => {
   try {
-    await signOut(auth);
+    const supebase = createClient();
+	await supebase.auth.signOut();
+	
   } catch (error) {
     console.error("Error logging out:", error);
   }
@@ -114,11 +115,12 @@ export const logout = async (): Promise<void> => {
 
 export const validateToken = async (token: string): Promise<User | null> => {
   try {
-    const userCredential: UserCredential = await signInWithCustomToken(
+    /*const userCredential: UserCredential = await signInWithCustomToken(
       auth,
       token
     );
-    return userCredential.user;
+    return userCredential.user;*/
+    return null;
   } catch (error) {
     console.error("Error validating token:", error);
     return null;

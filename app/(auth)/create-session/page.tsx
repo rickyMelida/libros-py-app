@@ -1,4 +1,4 @@
-import CreateSession from '@/components/Auth/CreateSession';
+import CreateSession from '@/components/Auth/Register';
 
 const CreateSessionPage = () => {
   return <CreateSession />

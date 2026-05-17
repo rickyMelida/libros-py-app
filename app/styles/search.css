@@ -1,0 +1,33 @@
+/* ── search.css — Resultados de búsqueda ───────────── */
+
+#search-result {
+  position: absolute;
+  right: 0;
+  margin-right: 12%;
+  z-index: 300;
+  width: 280px;
+  top: 100%;
+  margin-top: 4px;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  animation: fadeInUp .18s ease both;
+}
+
+#search-result > div {
+  padding: .55rem .9rem;
+  font-size: .88rem;
+  color: var(--clr-text);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+#search-result > div:hover {
+  background: var(--clr-primary-light);
+  color: var(--clr-primary);
+}

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import book1 from "~/public/img/books/libro1.jpg";
 import book2 from "~/public/img/books/libro2.jpg";
 import book3 from "~/public/img/books/libro3.jpg";
-import Carousel from "@/components/common/Carousel";
+import Carousel from "@/components/Common/Carousel";
 import Main from "@/components/Main";
 
 export default function Home() {
