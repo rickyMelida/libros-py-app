@@ -43,9 +43,9 @@ const index = () => {
 			<header id="home">
 				<nav className="navbar navbar-expand-lg">
 					<div className="container-fluid">
-						<a className="navbar-brand" href="#" title="Inicio">
-							<img src="./img/book.png" alt="Change Books" width="46" />
-						</a>
+						<Link className="navbar-brand" href="/" title="Inicio">
+							<Image src={bookIcon} width={100} height={100} alt="" />
+						</Link>
 						<button
 							className="navbar-toggler"
 							type="button"
