@@ -2,9 +2,9 @@
 
 import { useEffect } from "react";
 
-export default function () {
+export default function BootstrapClient() {
     useEffect(() => {
-        //@ts-ignore
+        // @ts-ignore
         require("bootstrap/dist/js/bootstrap.min.js");
     }, []);
 

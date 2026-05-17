@@ -11,7 +11,7 @@ import { register } from "@/services/authService";
 import { IUserCredential } from "@/models/interfaces/IUserCredential";
 import { useRouter } from "next/navigation";
 
-const index = () => {
+const Index = () => {
 	const router = useRouter();
 	const [userData, setUserData] = useState<IUserCredential>({
 		name: "",
@@ -118,4 +118,4 @@ const index = () => {
 	);
 };
 
-export default index;
+export default Index;

@@ -13,7 +13,7 @@ import UnAuthenticatedIconSection from "@/components/Auth/HeaderAuthSection/UnAu
 import ModalLogin from "@/components/Auth/HeaderAuthSection/ModalLogin";
 import { useAuth } from "@/hooks/useAuth";
 
-const index = () => {
+const Index = () => {
 	const [showModal, setShowModal] = useState<boolean>(false);
 	const { isAuthenticated, data } = useAuth();
 
@@ -100,4 +100,4 @@ const index = () => {
 	);
 };
 
-export default index;
+export default Index;

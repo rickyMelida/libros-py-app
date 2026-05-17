@@ -5,7 +5,7 @@ import bookmark from "~/public/img/bookmark.svg";
 import { v4 as uuidv4 } from "uuid";
 import Link from "next/link";
 
-const index = () => {
+const Index = () => {
 	return (
 		<div className="card" id="6" style={{ width: "18rem" }}>
 			<div className={`id-${uuidv4()}`}>
@@ -54,4 +54,4 @@ const index = () => {
 	);
 };
 
-export default index;
+export default Index;

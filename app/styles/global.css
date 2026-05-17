@@ -88,7 +88,7 @@ a:hover { color: var(--clr-primary-hover); }
   background: var(--clr-surface) !important;
   border-bottom: 1px solid var(--clr-border);
   box-shadow: var(--shadow-sm);
-  padding: .75rem 1.5rem;
+  padding: 0 1.5rem;
   position: sticky;
   top: 0;
   z-index: 1000;

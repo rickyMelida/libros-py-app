@@ -1,6 +1,6 @@
 import Card from "@/components/Common/Card";
 
-const index = ({ title, section }: { title: string, section: string }) => {
+const Index = ({ title, section }: { title: string, section: string }) => {
 	return (
 		<>
 			<div className="container-fluid px-3 px-md-4">
@@ -28,4 +28,4 @@ const index = ({ title, section }: { title: string, section: string }) => {
 	);
 };
 
-export default index;
+export default Index;

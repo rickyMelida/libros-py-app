@@ -4,9 +4,8 @@ import { useState } from "react";
 import { ICredential } from "@/models/interfaces/ICredential";
 import { useRouter } from "next/navigation";
 import { loginByEmail } from "@/services/authService";
-import { Loader2 } from "lucide-react";
 
-const index = () => {
+const Index = () => {
 	const router = useRouter();
 	const [error, setError] = useState<string>("");
 	const [credentials, setCredentials] = useState<ICredential>({
@@ -97,4 +96,4 @@ const index = () => {
 	);
 };
 
-export default index;
+export default Index;

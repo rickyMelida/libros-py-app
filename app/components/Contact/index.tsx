@@ -1,4 +1,4 @@
-const index = () => {
+const Index = () => {
   return (
     <>
       <div className="row mt-5 mb-3">
@@ -61,4 +61,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

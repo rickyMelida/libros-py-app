@@ -3,7 +3,7 @@ import facebookIcon from "~/public/img/facebook.svg";
 import instagramIcon from "~/public/img/instagram.svg";
 import twitterIcon from "~/public/img/twitter.svg";
 
-const index = () => {
+const Index = () => {
 	return (
 		<div className="row mt-4">
 			<div className="col-12">
@@ -36,4 +36,4 @@ const index = () => {
 	);
 };
 
-export default index;
+export default Index;

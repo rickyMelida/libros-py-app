@@ -1,4 +1,4 @@
-const index = () => {
+const Index = () => {
     return (
         <>
             <div className="container">
@@ -121,4 +121,4 @@ const index = () => {
     );
 };
 
-export default index;
+export default Index;

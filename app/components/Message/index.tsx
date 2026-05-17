@@ -3,7 +3,7 @@ import Image from "next/image";
 import avatarIcon from "~/public/img/avatar.svg";
 import sendIcon from "~/public/img/send-alt.png";
 
-const index = () => {
+const Index = () => {
   return (
     <div className="container">
       <hr />
@@ -295,4 +295,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

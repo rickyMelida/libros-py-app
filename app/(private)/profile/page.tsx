@@ -60,8 +60,9 @@ const ProfilePage = () => {
                                 title="Agregar nuevo libro"
                                 style={{ width: "18rem" }}
                             >
-                                <img
+                                <Image
                                     src={addBook}
+									alt="Book Icon"
                                     width="100"
                                     height="350"
                                     className="card-img-top image-add-book text-center"

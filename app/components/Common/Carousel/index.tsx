@@ -1,7 +1,7 @@
 import Image, { StaticImageData } from "next/image";
 import { v4 as uuidv4 } from "uuid";
 
-const index = ({ images }: { images: StaticImageData[] }) => {
+const Index = ({ images }: { images: StaticImageData[] }) => {
 	return (
 		<div className="row mb-4">
 			<div className="col-12">
@@ -52,4 +52,4 @@ const index = ({ images }: { images: StaticImageData[] }) => {
 	);
 };
 
-export default index;
+export default Index;

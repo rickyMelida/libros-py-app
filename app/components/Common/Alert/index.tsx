@@ -1,4 +1,4 @@
-const index = ({ message }: { message: string }) => {
+const Index = ({ message }: { message: string }) => {
   return (
     <div className="alert alert-danger my-3 text-center" role="alert">
       {message}
@@ -6,4 +6,4 @@ const index = ({ message }: { message: string }) => {
   );
 };
 
-export default index;
+export default Index;
