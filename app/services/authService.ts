@@ -1,18 +1,13 @@
 import { ICredential } from "@/models/interfaces/ICredential";
+import { User } from "@supabase/supabase-js"
 
 import {
-  signInWithEmailAndPassword,
-  signOut,
-  createUserWithEmailAndPassword,
-  User,
   GoogleAuthProvider,
-  FacebookAuthProvider,
-  signInWithPopup,
-  UserCredential,
-  signInWithCustomToken,
+  FacebookAuthProvider
 } from "firebase/auth";
 import axios from "axios";
 import { IUserCredential } from "@/models/interfaces/IUserCredential";
+import { createClient } from "@/lib/supabase/client";
 
 export const loginByEmail = async (
   credential: ICredential
@@ -20,15 +15,18 @@ export const loginByEmail = async (
   const { email, password } = credential;
 
   try {
-    /*const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    return userCredential.user;*/
-	return null;
-  } catch (error) {
-    console.error("Error logging in:", error);
+	const supebase = createClient();
+	const { data, error } = await supebase.auth.signInWithPassword({ email, password });
+	console.log({data, error});
+	if(error) 
+		return null;
+	
+	
+	return data.user;
+	
+} catch (error) {
+	  console.log({email, password})
+    console.log("Error logging in:", error);
     return null;
   }
 };
@@ -107,7 +105,9 @@ export const register = async (
 
 export const logout = async (): Promise<void> => {
   try {
-    console.log("Logging out...");
+    const supebase = createClient();
+	await supebase.auth.signOut();
+	
   } catch (error) {
     console.error("Error logging out:", error);
   }

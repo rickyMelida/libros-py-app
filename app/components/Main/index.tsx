@@ -1,4 +1,4 @@
-import Card from "@/components/common/Card";
+import Card from "@/components/Common/Card";
 
 const index = ({ title, section }: { title: string, section: string }) => {
 	return (

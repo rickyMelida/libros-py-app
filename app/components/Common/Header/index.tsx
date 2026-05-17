@@ -3,40 +3,22 @@
 import Link from "next/link";
 import Image from "next/image";
 import bookIcon from "~/public/img/libros-libres-logo.png";
+import userIcon from "~/public/img/user.svg";
+import messageIcon from "~/public/img/message.svg";
+import favoriteIcon from "~/public/img/wish_list.svg";
 import { useEffect, useState } from "react";
 import AuthenticatedSection from "@/components/Auth/HeaderAuthSection/AuthenticatedSection";
 import AuthenticatedIconSection from "@/components/Auth/HeaderAuthSection/AuthenticatedIconSection";
 import UnAuthenticatedIconSection from "@/components/Auth/HeaderAuthSection/UnAuthenticatedIconSection";
 import ModalLogin from "@/components/Auth/HeaderAuthSection/ModalLogin";
+import { useAuth } from "@/hooks/useAuth";
 
 const index = () => {
-	const { isAuthenticated, data } = {
-		isAuthenticated: true,
-		data: {
-			name: "John Doe",
-			email: "john.doe@example.com",
-			"phone_number": "+1234567890",
-			picture: "https://example.com/profile.jpg",
-			uid: "1234567890",
-		}
-	};
 	const [showModal, setShowModal] = useState<boolean>(false);
+	const { isAuthenticated, data } = useAuth();
 
 	const handleModalAuth = (value: boolean) => setShowModal(value);
-
-	/*useEffect(() => {
-		if (isAuthenticated && data) {
-			dispatch(
-				setUser({
-					name: 'data.name',
-					email: 'data.email',
-					phoneNumber: 'data["phone_number"]',
-					picture: 'data.picture',
-					userId: 'data.uid',
-				})
-			);
-		}
-	}, [isAuthenticated]);*/
+	const handle = () => console.log("Cerrar Sesion");
 
 	return (
 		<>
@@ -81,9 +63,18 @@ const index = () => {
 								<li className="nav-item">
 									<a className="nav-link" id="contacts-item" href="./views/contacts.html">Contactos</a>
 								</li>
-								<li className="nav-item">
-									<a className="nav-link" id="my-book-item" href="./views/myBooks.html">Mis Libros</a>
-								</li>
+								{isAuthenticated && (
+									<li className="nav-item">
+										<Link
+											id="favorites-item"
+											title="Favoritos"
+											href="/favorite"
+											className="nav-link"
+										>
+											Mis Libros
+										</Link>
+									</li>
+								)}
 							</ul>
 							<form className="d-flex">
 								<input
@@ -95,27 +86,11 @@ const index = () => {
 								/>
 								<button className="btn btn-outline-success" type="button" id="btn-search">Buscar</button>
 							</form>
-							<span className="mx-3">
-								<a href="./views/favorites.html" id="favorites-item" title="Favoritos">
-									<img src="./img/wish_list.svg" width="26" alt="Favoritos" />
-								</a>
-							</span>
-							<span className="mx-3">
-								<a href="./views/messages.html" id="messages-item" title="Mensajes">
-									<img src="./img/message.svg" width="26" alt="Mensajes" />
-								</a>
-							</span>
-							<span className="mx-1">
-								<div className="dropdown">
-									<a href="" className="dropbtn" id="my-profile-item" title="Mi Perfil">
-										<img src="./img/user.svg" width="26" alt="Perfil" />
-									</a>
-									<div className="dropdown-content" id="profile-option">
-										<a href="#">Mi Perfil</a>
-										<a href="#">Cerrar Sesión</a>
-									</div>
-								</div>
-							</span>
+							{isAuthenticated ? (
+								<AuthenticatedIconSection />
+							) : (
+								<UnAuthenticatedIconSection />
+							)}
 						</div>
 					</div>
 				</nav>

@@ -1,8 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@/styles/global.css";
 import BootstrapClient from "@/components/BootstrapClient";
-import Footer from "@/components/common/Footer";
-import Header from "@/components/common/Header";
+import Footer from "@/components/Common/Footer";
+import Header from "@/components/Common/Header";
 
 export default function RootLayout({
 	children,

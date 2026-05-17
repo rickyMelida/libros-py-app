@@ -22,11 +22,11 @@ const index = () => {
 			<div className="card-body">
 				<h5 className="card-title mb-5" style={{ maxHeight: "24px" }}>ESCUELA DE TRADING</h5>
 				<hr className="mx-2" />
-				<p className="card-text">
+				<div className="card-text">
 					<div className="pb-2"><strong>Estado: </strong>Usado</div>
 					<div className="py-2"><strong>Para: </strong>Vender</div>
 					<strong className="text-success d-block"></strong>
-				</p>
+				</div>
 				<button type="button" className="btn btn-primary btn-lg btn-block w-100">Contactar</button>
 				<section className="mt-4">
 					<Image
