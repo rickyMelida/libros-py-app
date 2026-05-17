@@ -1,5 +1,5 @@
 import Image from "next/image";
-import logoLL from "~/public/img/Gemini_logo.jpeg";
+import logoLL from "~/public/img/libros-libres-logo.png";
 
 export const Title = () => {
     return (

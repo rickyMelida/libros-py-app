@@ -1,0 +1,89 @@
+/* ── profile.css — Perfil de usuario ─────────────────── */
+
+/* Avatar grande (perfil) */
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 3px solid var(--clr-primary);
+  box-shadow: 0 0 0 5px var(--clr-primary-light);
+  overflow: hidden;
+  background: var(--clr-primary-light);
+  padding: 0;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Stats de perfil */
+.profile-stats .nav-item {
+  text-align: center;
+  padding: 0 1.5rem;
+}
+
+.profile-stats .nav-item strong {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--clr-primary);
+  font-family: var(--font-serif);
+}
+
+.profile-stats .nav-link {
+  font-size: .85rem !important;
+  color: var(--clr-text-muted) !important;
+  font-weight: 500 !important;
+  text-align: center;
+  padding: .3rem .5rem !important;
+  border-bottom: 2px solid transparent;
+  border-radius: 0 !important;
+  background: transparent !important;
+  transition: border-color var(--transition), color var(--transition) !important;
+}
+
+.profile-stats .nav-link:hover {
+  color: var(--clr-primary) !important;
+  border-bottom-color: var(--clr-primary);
+  background: transparent !important;
+}
+
+/* Nav de secciones en perfil */
+.active-select-profile {
+  color: var(--clr-primary) !important;
+  font-weight: 700 !important;
+  border-bottom: 2px solid var(--clr-primary) !important;
+  text-decoration: none !important;
+}
+
+li .d-block {
+  font-size: 1.4rem !important;
+  font-weight: 700 !important;
+  color: var(--clr-primary);
+}
+
+.mx-4 .nav-link {
+  font-size: .9rem !important;
+}
+
+.mx-4 .nav-link:hover {
+  color: var(--clr-primary) !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  border-bottom: 2px solid var(--clr-primary);
+}
+
+/* Sección libros del perfil */
+#my-books {
+  background: var(--clr-surface) !important;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--clr-border);
+  box-shadow: var(--shadow-sm);
+}

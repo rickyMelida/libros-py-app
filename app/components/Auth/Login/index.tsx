@@ -1,81 +1,97 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
-import { Title } from "./Title";
-import { IFormElement } from "@/models/interfaces/IFormElement";
-import { InputField } from "./InputField";
-import { Button } from "./Button";
-import { LastSection } from "./LastSection";
 import { useState } from "react";
 import { ICredential } from "@/models/interfaces/ICredential";
-import Alert from "@/components/common/Alert";
-import { validateLogin } from "@/utils/handler/authHandler";
+import { useRouter } from "next/navigation";
+import { createClient } from '@/lib/supabase/client'
 
 const index = () => {
-  const [credentials, setCredentials] = useState<ICredential>({
-    email: "",
-    password: "",
-  });
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
-  const inputs: IFormElement[] = [
-    {
-      id: "email",
-      type: "email",
-      name: "Correo",
-    },
-    {
-      id: "password",
-      type: "password",
-      name: "Contraseña",
-    },
-  ];
+	const router = useRouter();
+	const supabase = createClient();
+	const [error, setError] = useState<string>("");
+	const [credentials, setCredentials] = useState<ICredential>({
+		email: "",
+		password: "",
+	});
+	const [loading, setLoading] = useState<boolean>(false);
+	
+	const handleInputs = (key: string, value: string) => {
+		setCredentials((prevData) => ({ ...prevData, [key]: value }));
+	};
 
-  const handleInputs = (key: string, value: string) => {
-    setCredentials((prevData) => ({ ...prevData, [key]: value }));
-  };
+	const submitLogin = async (e: React.FormEvent<HTMLButtonElement>) => {
+		e.preventDefault();
+		const { error } = await supabase.auth.signInWithPassword({
+			email: credentials.email,
+			password: credentials.password,
+		})
 
-  const startSession = () => {
-    const { email, password } = credentials;
-    const validateError = validateLogin(email, password);
+		if (error) {
+			setError(error.message);
+			return;
+		}
 
-    if (validateError != ""){
-        setError(validateError);
-        return;
-    }
+		router.push("/home");
+	}
 
-    setLoading(true);
-    setError("");
-  };
-  return (
-    <>
-      <main className="container">
-        <div className="row">
-          <div className="col-md-4 offset-md-4">
-            <Title />
+	
+	return (
+		<div className="auth-page">
+			<div className="auth-card">
 
-            <form className="border border-dark p-4">
-              <InputField
-                inputProperty={inputs[0]}
-                handleValue={handleInputs}
-                loadingCredentials={loading}
-              />
-              <InputField
-                inputProperty={inputs[1]}
-                handleValue={handleInputs}
-                loadingCredentials={loading}
-              />
-              <Button onclick={startSession} loadingCredentials={loading} />
-              <hr className="line-horizontal my-5" />
-              <LastSection />
-            </form>
+				<div className="auth-logo">
+					<img src="./img/book.png" alt="Libros Libres PY" />
+					<h3>Libros Libres PY</h3>
+				</div>
 
-            {error != "" ? <Alert message={error} /> : ""}
-          </div>
-        </div>
-      </main>
-    </>
-  );
+				<form>
+					<div className="form-group py-1">
+						<label htmlFor="email">Correo electrónico</label>
+						<input type="email" 
+							   className="form-control" 
+							   id="email" 
+							   autoComplete="off" 
+							   placeholder="tu@correo.com" 
+							   onChange={(e) => handleInputs("email", e.target.value)}
+						/>
+					</div>
+					<div className="form-group py-1">
+						<label htmlFor="password">Contraseña</label>
+						<input type="password" 
+							   className="form-control" 
+							   id="password" 
+							   placeholder="••••••••" 
+							   onChange={(e) => handleInputs("password", e.target.value)}
+							/>
+					</div>
+
+					<button className="btn btn-dark btn-lg btn-block mt-3" 
+							disabled={loading || !credentials.email || !credentials.password}
+							onClick={(e) => submitLogin(e)}
+							
+						>
+						Iniciar Sesión
+					</button>
+					{
+						error && <div className="alert alert-danger mt-3 text-center d-none" role="alert">{error}</div>
+					}
+
+					<div className="auth-divider mt-4">
+						<span>¿Eres nuevo por aquí?</span>
+					</div>
+					<div className="auth-footer-text">
+						<a  style={{ cursor: "pointer" }} 
+							className="link-opacity-100-hover" 
+							onClick={() => router.push("/create-session")}
+						>
+								Crea tu cuenta en Change Books
+						</a>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	);
 };
 
 export default index;

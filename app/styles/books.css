@@ -1,0 +1,87 @@
+/* ── books.css — Cards de libros ─────────────────────── */
+
+/* Badge transacción */
+#img-transaction {
+  float: right;
+  filter: invert(30%) sepia(60%) saturate(500%) hue-rotate(120deg);
+}
+
+/* Avatar pequeño en cards */
+.avatar {
+  vertical-align: middle;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--clr-primary-light);
+  overflow: hidden;
+  object-fit: cover;
+}
+
+/* Card agregar libro */
+#card-add-book {
+  cursor: default;
+  border: 2px dashed var(--clr-border) !important;
+  background: var(--clr-bg) !important;
+  box-shadow: none !important;
+  transition: border-color var(--transition) !important;
+}
+#card-add-book:hover {
+  border-color: var(--clr-primary) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.image-add-book {
+  margin-top: 80px;
+  opacity: .25;
+  cursor: pointer;
+  transition: opacity var(--transition), transform var(--transition);
+  filter: invert(30%) sepia(60%) saturate(500%) hue-rotate(120deg);
+}
+.image-add-book:hover {
+  opacity: .85;
+  transform: scale(1.08);
+}
+
+.card-add-book {
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* Bookmark favorito */
+#bookmarkContainer {
+  position: relative;
+  top: -70px;
+  right: 5px;
+  text-align: right;
+}
+#bookmarkContainer img {
+  width: 22px;
+  cursor: pointer;
+  transition: filter var(--transition), transform var(--transition);
+  filter: invert(60%);
+}
+#bookmarkContainer img:hover {
+  filter: invert(30%) sepia(80%) saturate(800%) hue-rotate(30deg);
+  transform: scale(1.2);
+}
+
+/* Boton contactar en cards */
+.card .btn-outline-success,
+.card .btn-success {
+  border-color: var(--clr-primary);
+  color: var(--clr-primary);
+  font-size: .82rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  padding: .35rem .9rem;
+  transition: background var(--transition), color var(--transition);
+}
+.card .btn-outline-success:hover,
+.card .btn-success:hover {
+  background: var(--clr-primary);
+  color: #fff;
+}

@@ -1,0 +1,55 @@
+/* ── dropdown.css — Menú desplegable de perfil ────── */
+
+.dropbtn {
+  color: var(--clr-text-muted);
+  padding: 8px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  background: transparent;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  margin-top: 8px;
+  background: var(--clr-surface);
+  min-width: 160px;
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--clr-border);
+  z-index: 200;
+  overflow: hidden;
+  animation: fadeInUp .18s ease both;
+}
+
+.dropdown-content a {
+  color: var(--clr-text);
+  padding: .65rem 1rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .88rem;
+  font-weight: 500;
+  transition: background var(--transition), color var(--transition);
+}
+
+.dropdown-content a:hover {
+  background: var(--clr-primary-light);
+  color: var(--clr-primary);
+}
+
+.dropdown:hover .dropdown-content { display: block; }
+
+.dropdown:hover .dropbtn {
+  color: var(--clr-primary);
+}

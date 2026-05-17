@@ -12,6 +12,8 @@
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "@reduxjs/toolkit": "^2.6.1",
+    "@supabase/ssr": "^0.10.3",
+    "@supabase/supabase-js": "^2.105.4",
     "axios": "^1.8.1",
     "bootstrap": "^5.3.3",
     "firebase": "^11.1.0",
