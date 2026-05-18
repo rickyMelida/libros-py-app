@@ -5,13 +5,13 @@ import Carousel from "@/components/Common/Carousel";
 import Main from "@/components/Main";
 
 export default function HomePage() {
-  const images = [book1, book2, book3];
-  return (
-    <>
-      <Carousel images={images} />
-      <Main title="Lo mas destacado" section="destacados" />
-      <Main title="Lo mas reciente" section="recientes" />
-      <Main title="Otros libros" section="otros" />
-    </>
-  );
+	const images = [book1, book2, book3, book1, book2, book3];
+	return (
+		<>
+			<Carousel images={images} />
+			<Main title="Lo mas destacado" section="destacados" />
+			<Main title="Lo mas reciente" section="recientes" />
+			<Main title="Otros libros" section="otros" />
+		</>
+	);
 }
