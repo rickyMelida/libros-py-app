@@ -13,14 +13,14 @@ const Index = () => {
 					<Image
 						src={book}
 						className="card-img-top"
-						height="350"
+						height="300"
 						loading="lazy"
 						alt=""
 					/>
 				</Link>
 			</div>
 			<div className="card-body">
-				<h5 className="card-title mb-5" style={{ maxHeight: "24px" }}>ESCUELA DE TRADING</h5>
+				<h5 className="card-title mb-2">ESCUELA DE TRADING</h5>
 				<hr className="mx-2" />
 				<div className="card-text">
 					<div className="pb-2"><strong>Estado: </strong>Usado</div>
@@ -36,8 +36,8 @@ const Index = () => {
 						className="avatar"
 						width="25"
 						loading="lazy"
+						style={{marginLeft: 0}}
 					/>
-					<cite className="text-primary pt-2 d-block w-50 users" id="user-1">Johan Doe</cite>
 					<span className="text-dark float-end pt-2" id="bookmarkContainer">
 						<Image
 							src={bookmark}
