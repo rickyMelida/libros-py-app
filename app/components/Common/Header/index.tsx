@@ -3,10 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import bookIcon from "~/public/img/libros-libres-logo.png";
-import userIcon from "~/public/img/user.svg";
-import messageIcon from "~/public/img/message.svg";
-import favoriteIcon from "~/public/img/wish_list.svg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AuthenticatedSection from "@/components/Auth/HeaderAuthSection/AuthenticatedSection";
 import UnAuthenticatedIconSection from "@/components/Auth/HeaderAuthSection/UnAuthenticatedIconSection";
 import ModalLogin from "@/components/Auth/HeaderAuthSection/ModalLogin";
@@ -17,15 +14,15 @@ const Index = () => {
 	const { isAuthenticated, data } = useAuth();
 
 	const handleModalAuth = (value: boolean) => setShowModal(value);
-	const handle = () => console.log("Cerrar Sesion");
 
 	return (
 		<>
 			<header id="home">
 				<nav className="navbar navbar-expand-lg">
 					<div className="container-fluid">
-						<Link className="navbar-brand" href="/" title="Inicio">
+						<Link className="navbar-brand" href="/home" title="Inicio">
 							<Image src={bookIcon} width={100} height={100} alt="" />
+							<h5 className="d-inline pt-3 d-lg-none">Libros Libres</h5>
 						</Link>
 						<button
 							className="navbar-toggler"
@@ -41,7 +38,7 @@ const Index = () => {
 						<div className="collapse navbar-collapse" id="navbarSupportedContent">
 							<ul className="navbar-nav me-auto mb-2 mb-lg-0">
 								<li className="nav-item">
-									<a className="nav-link active" aria-current="page" id="home-item" href="">Inicio</a>
+									<Link className="navbar-brand nav-link" href="/home" title="Inicio">Inicio</Link>
 								</li>
 								<li className="nav-item dropdown">
 									<a
@@ -53,10 +50,13 @@ const Index = () => {
 										aria-expanded="false"
 									>Libros</a>
 									<ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-										<li><a className="dropdown-item" id="highlighted-item" href="#destacados">Destacados</a></li>
-										<li><a className="dropdown-item" id="recent-item" href="#recientes">Recientes</a></li>
+										<li>
+											<Link className="dropdown-item" id="highlighted-item" href="/home#destacados">Destacados</Link>
+										</li>
 										<li><hr className="dropdown-divider" /></li>
-										<li><a className="dropdown-item" id="others-item" href="#otros">Otros</a></li>
+										<li><Link className="dropdown-item" id="recent-item" href="/home#recientes">Recientes</Link></li>
+										<li><hr className="dropdown-divider" /></li>
+										<li><Link className="dropdown-item" id="others-item" href="/home#otros">Otros</Link></li>
 									</ul>
 								</li>
 								<li className="nav-item">

@@ -3,25 +3,28 @@
 import Image, { StaticImageData } from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import styles from "./index.module.css";
 
 const Index = ({ images }: { images: StaticImageData[] }) => {
-	return (
-		<Swiper
-			spaceBetween={20}
-			slidesPerView={2}
-		>
-			{images.map((img, index) => (
-				<SwiperSlide key={index}>
-					<Image
-						src={img}
-						height={300}
-						alt=""
-						style={{ width: "100%" }}
-					/>
-				</SwiperSlide>
-			))}
-		</Swiper>
-	);
+       return (
+	       <div className={styles["carousel-responsive-container"]}>
+		       <Swiper
+			       spaceBetween={20}
+			       slidesPerView={2}
+		       >
+			       {images.map((img, index) => (
+				       <SwiperSlide key={index}>
+					       <Image
+						       src={img}
+						       height={300}
+						       alt=""
+						       className={styles["swiper-image"]}
+					       />
+				       </SwiperSlide>
+			       ))}
+		       </Swiper>
+	       </div>
+       );
 };
 
 export default Index;
