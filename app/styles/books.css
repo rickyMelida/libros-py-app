@@ -54,8 +54,8 @@
 /* Bookmark favorito */
 #bookmarkContainer {
   position: relative;
-  top: -55px;
-  right: 5px;
+  top: -49px;
+  right: 20px;
   text-align: right;
 }
 #bookmarkContainer img {

@@ -264,6 +264,7 @@ a:hover { color: var(--clr-primary-hover); }
   cursor: pointer;
   margin: 0 auto;
   background: var(--clr-surface);
+  height: 45vh;
 }
 .card:hover {
   box-shadow: var(--shadow-md);
@@ -293,9 +294,10 @@ a:hover { color: var(--clr-primary-hover); }
 }
 .card .avatar {
   width: 22px !important;
-  height: 22px !important;
+  height: 24px !important;
   border-radius: 50%;
   margin-right: 0.5rem;
+  margin-left: 10% !important;
 }
 .card .favourite {
   width: 22px !important;

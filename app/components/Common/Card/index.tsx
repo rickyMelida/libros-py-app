@@ -23,8 +23,8 @@ const Index = () => {
 				<h5 className="card-title mb-2">ESCUELA DE TRADING</h5>
 				<hr className="mx-2" />
 				<div className="card-text">
-					<div className="pb-2"><strong>Estado: </strong>Usado</div>
-					<div className="py-2"><strong>Para: </strong>Vender</div>
+					<div><strong>Estado: </strong>Usado</div>
+					<div><strong>Para: </strong>Vender</div>
 					<strong className="text-success d-block"></strong>
 				</div>
 				<button type="button" className="btn btn-primary btn-lg btn-block w-100">Contactar</button>
