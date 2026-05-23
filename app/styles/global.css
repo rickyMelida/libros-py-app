@@ -264,7 +264,7 @@ a:hover { color: var(--clr-primary-hover); }
   cursor: pointer;
   margin: 0 auto;
   background: var(--clr-surface);
-  height: 45vh;
+  height: 95%;
 }
 .card:hover {
   box-shadow: var(--shadow-md);
@@ -311,9 +311,6 @@ a:hover { color: var(--clr-primary-hover); }
 }
 
 @media (max-width: 768px) {
-  .card {
-    margin-bottom: 1rem;
-  }
   .card img {
     height: 180px !important;
   }
