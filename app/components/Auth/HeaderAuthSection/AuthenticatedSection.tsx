@@ -1,6 +1,15 @@
+import { logout } from "@/services/authService";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const AuthenticatedSection = () => {
+	const router = useRouter();
+
+	const logoutHandle = async () => {
+		await logout();
+		router.push("/login");
+	}
+
   return (
     <>
       <li className="nav-item dropdown users-details" id="users-details">
@@ -52,6 +61,11 @@ const AuthenticatedSection = () => {
             >
               Mensajes
             </Link>
+          </li>
+		  <li>
+			<a className="dropdown-item" onClick={logoutHandle}>
+              Cerrar Sesión
+			</a>
           </li>
         </ul>
       </li>

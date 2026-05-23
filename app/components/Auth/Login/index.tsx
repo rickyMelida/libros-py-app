@@ -24,8 +24,6 @@ const Index = () => {
 		setLoading(true);
 		const siginResponse = await loginByEmail(credentials);
 
-		console.log({ siginResponse });
-
 		if (!siginResponse) {
 			setLoading(false);
 			setError("Error al iniciar sesión. Verifica tus credenciales e intenta nuevamente.");
