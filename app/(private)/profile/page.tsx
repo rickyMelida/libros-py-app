@@ -1,3 +1,5 @@
+'use client';
+
 import Card from "@/components/Common/Card";
 import Image from "next/image";
 import avatar from "~/public/img/avatar.svg";
@@ -5,6 +7,11 @@ import addBook from "~/public/img/bookPlus.svg";
 
 
 const ProfilePage = () => {
+
+	const handleAddBook = () => {
+		// Aquí puedes agregar la lógica para redirigir a la página de agregar libro
+		window.location.href = "/profile/add-book";
+	}
 	return (
 		<div className="container">
 
@@ -76,7 +83,8 @@ const ProfilePage = () => {
 						<Card />
 					</div>
 					<div className="col-6 col-md-4 col-xl-3 py-3">
-						<div className="card card-add-book border-0 bg-light" title="Agregar nuevo libro" >
+						<div  className="card card-add-book border-0 bg-light" 
+							title="Agregar nuevo libro" onClick={handleAddBook}>
 							<Image
 								src={addBook}
 								className="card-img-top image-add-book text-center"
