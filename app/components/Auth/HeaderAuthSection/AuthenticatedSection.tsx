@@ -10,6 +10,16 @@ const AuthenticatedSection = () => {
 		router.push("/login");
 	}
 
+	const resetNavbar = () => {
+		const collapse = document.getElementById("navbarSupportedContent");
+		if (!collapse) return;
+		const el = collapse as HTMLElement;
+		if (el.classList.contains("show")) {
+			const toggler = document.querySelector(".navbar-toggler") as HTMLElement | null;
+			toggler?.click();
+		}
+	};
+
   return (
     <>
       <li className="nav-item dropdown users-details" id="users-details">
@@ -32,6 +42,7 @@ const AuthenticatedSection = () => {
                 color: "black",
                 textDecoration: "none",
               }}
+			  onClick={resetNavbar}
             >
               Mi Perfil
             </Link>
@@ -45,6 +56,7 @@ const AuthenticatedSection = () => {
                 color: "black",
                 textDecoration: "none",
               }}
+			  onClick={resetNavbar}
             >
               Favoritos
             </Link>
@@ -58,6 +70,7 @@ const AuthenticatedSection = () => {
                 color: "black",
                 textDecoration: "none",
               }}
+			  onClick={resetNavbar}
             >
               Mensajes
             </Link>

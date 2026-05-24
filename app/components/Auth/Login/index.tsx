@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import { ICredential } from "@/models/interfaces/ICredential";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { loginByEmail } from "@/services/authService";
 
 const Index = () => {
 	const router = useRouter();
+	const searchParams = useSearchParams();
+	const externalMessage = searchParams?.get("message") ?? "";
 	const [error, setError] = useState<string>("");
 	const [credentials, setCredentials] = useState<ICredential>({
 		email: "",
@@ -45,6 +47,7 @@ const Index = () => {
 				</div>
 
 				<form>
+					{ externalMessage && <div className="alert alert-info mt-3 text-center" role="alert">{externalMessage}</div> }
 					<div className="form-group py-1">
 						<label htmlFor="email">Correo electrónico</label>
 						<input type="email"

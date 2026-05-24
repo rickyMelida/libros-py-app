@@ -49,7 +49,14 @@ const Index = () => {
 						<div className="collapse navbar-collapse" id="navbarSupportedContent">
 							<ul className="navbar-nav me-auto mb-2 mb-lg-0">
 								<li className="nav-item">
-									<Link className="navbar-brand nav-link" href="/home" title="Inicio" onClick={resetNavbar}>Inicio</Link>
+									<Link 
+										className="navbar-brand nav-link" 
+										href="/home" 
+										title="Inicio" 
+										onClick={resetNavbar}
+									>
+										Inicio
+									</Link>
 								</li>
 								<li className="nav-item dropdown">
 									<a
@@ -62,12 +69,37 @@ const Index = () => {
 									>Libros</a>
 									<ul className="dropdown-menu" aria-labelledby="navbarDropdown">
 										<li>
-											<Link className="dropdown-item" id="highlighted-item" href="/home#destacados" onClick={resetNavbar}>Destacados</Link>
+											<Link 
+												className="dropdown-item" 
+												id="highlighted-item" 
+												href="/home#destacados" 
+												onClick={resetNavbar}
+											>
+												Destacados
+											</Link>
 										</li>
 										<li><hr className="dropdown-divider" /></li>
-										<li><Link className="dropdown-item" id="recent-item" href="/home#recientes" onClick={resetNavbar}>Recientes</Link></li>
+										<li>
+											<Link 
+												className="dropdown-item" 
+												id="recent-item" 
+												href="/home#recientes" 
+												onClick={resetNavbar}
+											>
+												Recientes
+											</Link>
+										</li>
 										<li><hr className="dropdown-divider" /></li>
-										<li><Link className="dropdown-item" id="others-item" href="/home#otros" onClick={resetNavbar}>Otros</Link></li>
+										<li>
+											<Link 
+												className="dropdown-item" 
+												id="others-item" 
+												href="/home#otros" 
+												onClick={resetNavbar}
+											>
+												Otros
+											</Link>
+										</li>
 									</ul>
 								</li>
 								<li className="nav-item">

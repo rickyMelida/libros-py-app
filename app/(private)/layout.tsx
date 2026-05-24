@@ -16,7 +16,8 @@ export default async function RootLayout({
 	const { data: { user } } = await supabase.auth.getUser()
 
 	if (!user) {
-		redirect('/login')
+		const msg = encodeURIComponent('Por favor inicia sesión para continuar');
+		redirect(`/login?message=${msg}`);
 	}
 
 	return (
