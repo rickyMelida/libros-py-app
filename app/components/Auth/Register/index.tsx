@@ -1,18 +1,14 @@
 "use client";
 
-import { v4 as uuid } from "uuid";
-import Link from "next/link";
-import { Title } from "./Title";
-import { FormFields } from "./FormFields";
-import { IFormElement } from "@/models/interfaces/IFormElement";
 import { useState } from "react";
-import Swal from "sweetalert2";
 import { register } from "@/services/authService";
 import { IUserCredential } from "@/models/interfaces/IUserCredential";
 import { useRouter } from "next/navigation";
 
 const Index = () => {
 	const router = useRouter();
+	const [loading, setLoading] = useState(false);
+	
 	const [userData, setUserData] = useState<IUserCredential>({
 		name: "",
 		email: "",
@@ -28,6 +24,7 @@ const Index = () => {
 	};
 
 	const sendData = () => {
+		setLoading(true);
 		const [isFormDataValid, message] = isValidateData(userData);
 
 		if (!isFormDataValid) {
@@ -36,11 +33,17 @@ const Index = () => {
 		}
 
 		register(userData)
-			.then((res) => {
-				console.log(res);
+			.then((res: any) => {
+				console.log({ res: res.user });
+				const emailParam = encodeURIComponent(res.user.email);
+				router.push(`/email-verification?email=${emailParam}`);
 			})
 			.catch((err) => {
+				console.log({ err });
 				console.log("error al registrar usuario");
+			})
+			.finally(() => {
+				setLoading(false);
 			});
 	};
 
@@ -50,8 +53,6 @@ const Index = () => {
 		if (name.trim() === "") return [false, "El campo Nombre es requerido"];
 
 		if (email.trim() === "") return [false, "El campo email es requerido"];
-
-		if (phone.trim() === "") return [false, "El campo Telefono es requerido"];
 
 		if (password.trim() === "")
 			return [false, "El campo contraseña es requerido"];
@@ -84,10 +85,6 @@ const Index = () => {
 						<input type="email" className="form-control" id="email" name="email" autoComplete="off" placeholder="tu@correo.com" value={userData.email} onChange={getDataFromForm} />
 					</div>
 					<div className="form-group py-1">
-						<label htmlFor="phone">Teléfono</label>
-						<input type="tel" className="form-control" id="phone" name="phone" autoComplete="off" placeholder="Tu teléfono" value={userData.phone} onChange={getDataFromForm} />
-					</div>
-					<div className="form-group py-1">
 						<label htmlFor="password">Contraseña</label>
 						<input type="password" className="form-control" id="password" name="password" placeholder="Al menos 8 caracteres" value={userData.password} onChange={getDataFromForm} />
 					</div>
@@ -96,8 +93,8 @@ const Index = () => {
 						<input type="password" className="form-control" id="password-confirm" name="confirmPassword" placeholder="Repetir contraseña" value={userData.confirmPassword} onChange={getDataFromForm} />
 					</div>
 
-					<button type="button" id="btn-create-account" className="btn btn-dark btn-lg btn-block mt-3" onClick={sendData}>
-						Crear cuenta
+					<button type="button" id="btn-create-account" className="btn btn-dark btn-lg btn-block mt-3" onClick={sendData} disabled={loading}>
+						{loading ? "Creando cuenta..." : "Crear cuenta"}
 					</button>
 
 					<p className="auth-terms mt-3">
@@ -110,7 +107,13 @@ const Index = () => {
 						<span>¿Ya tenés cuenta?</span>
 					</div>
 					<div className="auth-footer-text">
-						<a style={{cursor: "pointer"}} className="link-opacity-100-hover" onClick={() => router.push("/login")}>Iniciá sesión</a>
+						<a 
+							style={{ cursor: "pointer" }} 
+							className="link-opacity-100-hover" 
+							onClick={() => router.push("/login")}
+						>
+							Iniciá sesión
+						</a>
 					</div>
 				</form>
 			</div>

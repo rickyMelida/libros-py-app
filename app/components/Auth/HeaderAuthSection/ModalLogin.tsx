@@ -24,7 +24,7 @@ const ModalLogin: React.FC<IHandle> = ({ handleValue, value }) => {
         break;
     }
 
-    localStorage.setItem("token", authResult);
+    //localStorage.setItem("token", authResult);
     handleValue(false, authResult);
 
   };
