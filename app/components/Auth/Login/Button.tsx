@@ -10,8 +10,6 @@ export const Button = ({
   const [loading, setLoading] = useState<boolean>(loadingCredentials);
 
   useEffect(() => {
-    console.log(loadingCredentials);
-    
     setLoading(loadingCredentials);
   }, [loadingCredentials]);
   return (

@@ -15,7 +15,6 @@ export const createBook = async (formData: BookFormData): Promise<BookDTORespons
 	body.append("bookRequest.OtherDetail", formData.otherDetail);
 	body.append("bookRequest.Year", formData.year);
 
-	console.log({ formData });	
 	// Las imágenes se agregan individualmente con el mismo key
 	formData.images.forEach((file) => {
 		body.append("bookRequest.Images", file);

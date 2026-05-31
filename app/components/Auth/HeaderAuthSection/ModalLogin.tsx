@@ -1,4 +1,4 @@
-import { signInWithFacebook, signInWithGoogle } from "@/services/authService";
+import { AuthService } from "@/services/authService";
 import IHandle from "@/models/propsInterfaces/IHandle";
 import facebookIcon from "~/public/img/facebook.svg";
 import messageIcon from "~/public/img/message.png";
@@ -12,13 +12,14 @@ import Link from "next/link";
 const ModalLogin: React.FC<IHandle> = ({ handleValue, value }) => {
   const handleAuth = async (authMethod: string) => {
     let authResult;
+	const authService = new AuthService();
 
     switch (authMethod) {
       case AuthMethod.GOOGLE:
-        authResult = await signInWithGoogle();
+        authResult = await authService.signInWithGoogle();
         break;
       case AuthMethod.FACEBOOK:
-        authResult = await signInWithFacebook();
+        authResult = await authService.signInWithFacebook();
         break;
       default:
         break;

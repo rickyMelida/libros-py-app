@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { register } from "@/services/authService";
+import { AuthService } from "@/services/authService";
 import { IUserCredential } from "@/models/interfaces/IUserCredential";
 import { useRouter } from "next/navigation";
 
 const Index = () => {
 	const router = useRouter();
 	const [loading, setLoading] = useState(false);
+	const authService = new AuthService();
 	
 	const [userData, setUserData] = useState<IUserCredential>({
 		name: "",
@@ -32,15 +33,13 @@ const Index = () => {
 			return;
 		}
 
-		register(userData)
+		authService.register(userData)
 			.then((res: any) => {
-				console.log({ res: res.user });
 				const emailParam = encodeURIComponent(res.user.email);
 				router.push(`/email-verification?email=${emailParam}`);
 			})
 			.catch((err) => {
 				console.log({ err });
-				console.log("error al registrar usuario");
 			})
 			.finally(() => {
 				setLoading(false);

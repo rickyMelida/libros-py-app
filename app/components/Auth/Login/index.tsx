@@ -3,10 +3,11 @@
 import { useState } from "react";
 import { ICredential } from "@/models/interfaces/ICredential";
 import { useRouter, useSearchParams } from "next/navigation";
-import { loginByEmail } from "@/services/authService";
+import { AuthService } from "@/services/authService";
 
 const Index = () => {
 	const router = useRouter();
+	const authService = new AuthService();
 	const searchParams = useSearchParams();
 	const externalMessage = searchParams?.get("message") ?? "";
 	const [error, setError] = useState<string>("");
@@ -24,7 +25,8 @@ const Index = () => {
 	const submitLogin = async (e: React.FormEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		setLoading(true);
-		const siginResponse = await loginByEmail(credentials);
+		const siginResponse = await authService.loginByEmail(credentials);
+		localStorage.setItem("user", JSON.stringify(siginResponse));
 
 		if (!siginResponse) {
 			setLoading(false);

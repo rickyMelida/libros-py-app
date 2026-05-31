@@ -1,12 +1,16 @@
-import { logout } from "@/services/authService";
+import { AuthService } from "@/services/authService";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const AuthenticatedSection = () => {
 	const router = useRouter();
+	const authService = new AuthService();
 
 	const logoutHandle = async () => {
-		await logout();
+		await authService.logout();
+		localStorage.removeItem("user");
+		localStorage.removeItem("authUser");
+		
 		router.push("/login");
 	}
 

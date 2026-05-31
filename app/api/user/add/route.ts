@@ -8,8 +8,6 @@ export async function POST(request: Request) {
 	const { name, email, uid } = body;
 	try {
 		const requestBody = { user: { name, email, uid, id: 0, phone: '' } };
-		
-		console.log({ API_URL, body, requestBody });
 
 		const response = await axios.post(API_URL, requestBody, {
 			headers: {
