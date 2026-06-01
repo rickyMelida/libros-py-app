@@ -2,11 +2,19 @@
 
 import { IFormElement } from "@/models/interfaces/IFormElement";
 import { Title } from "./Title";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from "react";
 import BookFormData from "@/models/interfaces/BookFormData";
-import BookDTOResponse from "@/models/response/BookDTOResponse";
+import Swal from 'sweetalert2';
 import { createBook } from "@/services/bookService";
 import axios from "axios";
+import Image from 'next/image';
+
+
+interface PreviewFile {
+	url: string;
+	name: string;
+	size: number;
+}
 
 
 const INITIAL_FORM: BookFormData = {
@@ -71,11 +79,24 @@ const Index = () => {
 			type: "file",
 		},
 	];
-
+	const [previews, setPreviews] = useState<PreviewFile[]>([]);
 	const [form, setForm] = useState<BookFormData>(INITIAL_FORM);
 	const [loading, setLoading] = useState(false);
-	const [result, setResult] = useState<BookDTOResponse | null>(null);
+	const [messageResult, setMessageResult] = useState<string | null>(null);
 	const [error, setError] = useState<string | null>(null);
+
+	useEffect(() => {
+		if (messageResult) {
+			Swal.fire({
+				title: '¡Libro creado!',
+				text: messageResult,
+				icon: 'success',
+				confirmButtonText: 'Aceptar'
+			}).then(() => {
+				resetForm();
+			});
+		}
+	}, [messageResult]);
 
 	function handleChange(
 		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -98,11 +119,11 @@ const Index = () => {
 		e.preventDefault();
 		setLoading(true);
 		setError(null);
-		setResult(null);
+		setMessageResult(null);
 
 		try {
 			const response = await createBook(form);
-			setResult(response);
+			setMessageResult(response);
 		} catch (err: unknown) {
 			if (axios.isAxiosError(err)) {
 				setError(err.response?.data?.message ?? err.message);
@@ -113,6 +134,48 @@ const Index = () => {
 			setLoading(false);
 		}
 	}
+
+	function resetForm() {
+		setForm(INITIAL_FORM);
+		setPreviews([]);
+	}
+
+
+	const handleChangeImage = useCallback(
+		(e: React.ChangeEvent<HTMLInputElement>) => {
+			const files = Array.from(e.target.files ?? []);
+
+			// Liberar URLs anteriores para evitar memory leaks
+			setPreviews(prev => {
+				prev.forEach(p => URL.revokeObjectURL(p.url));
+				return [];
+			});
+
+			const newPreviews = files.map(file => ({
+				url: URL.createObjectURL(file),
+				name: file.name,
+				size: file.size,
+			}));
+
+			setPreviews(newPreviews);
+
+			const filesUpload = Array.from(e.target.files ?? []);
+			setForm((prev) => ({ ...prev, images: files }));
+		},
+		[]
+	);
+
+	const removeImage = (index: number) => {
+		console.log("Removing image at index:", index);
+		setForm(prev => {
+			const newImages = prev.images.filter((_, i) => i !== index);
+			return { ...prev, images: newImages };
+		});
+		setPreviews(prev => {
+			URL.revokeObjectURL(prev[index].url); // liberar memoria
+			return prev.filter((_, i) => i !== index);
+		});
+	};
 
 	return (
 		<div className="container">
@@ -234,8 +297,24 @@ const Index = () => {
 									className="custom-file-input"
 									id="customFile"
 									multiple
-									onChange={handleImages}
+									onChange={handleChangeImage}
 								/>
+								{previews.length > 0 && (
+									<div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '12px' }}>
+										{previews.map((preview, index) => (
+											<div key={index} style={{ position: 'relative' }}>
+												<Image
+													src={preview.url}
+													alt={preview.name}
+													width={80}
+													height={80}
+													style={{ objectFit: 'cover', borderRadius: '6px' }}
+												/>
+												<button className="remove-btn" onClick={() => removeImage(index)}>✕</button>
+											</div>
+										))}
+									</div>
+								)}
 								{form.images.length > 0 && (
 									<small style={{ color: "var(--color-text-secondary)" }}>
 										{form.images.length} imagen(es) seleccionada(s)
@@ -243,7 +322,7 @@ const Index = () => {
 								)}
 							</div>
 						</div>
-						<button type="submit" className="btn btn-primary btn-lg btn-block">
+						<button type="submit" className="btn btn-primary btn-lg btn-block" disabled={loading}>
 							{loading ? "Subiendo…" : "Subir Libro"}
 						</button>
 					</form>

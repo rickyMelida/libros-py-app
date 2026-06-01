@@ -25,6 +25,14 @@
   animation: floatBook 5s ease-in-out infinite;
 }
 
+.remove-btn {
+  background: white;
+  border: 0.5px solid #ccc;
+  border-radius: 50%;
+  transition: border-color 0.15s, color 0.15s;
+}
+.remove-btn:hover { border-color: red; color: red; }
+
 @keyframes floatBook {
   0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(-10px); }
