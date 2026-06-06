@@ -83,7 +83,6 @@ const Index = () => {
 	const [form, setForm] = useState<BookFormData>(INITIAL_FORM);
 	const [loading, setLoading] = useState(false);
 	const [messageResult, setMessageResult] = useState<string | null>(null);
-	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
 		if (messageResult) {
@@ -118,18 +117,18 @@ const Index = () => {
 	async function handleSubmit(e: FormEvent) {
 		e.preventDefault();
 		setLoading(true);
-		setError(null);
 		setMessageResult(null);
 
 		try {
 			const response = await createBook(form);
 			setMessageResult(response);
-		} catch (err: unknown) {
-			if (axios.isAxiosError(err)) {
-				setError(err.response?.data?.message ?? err.message);
-			} else {
-				setError("Error inesperado");
-			}
+		} catch (err: any) {
+			Swal.fire({
+				title: 'Error',
+				text: err.message,
+				icon: 'error',
+				confirmButtonText: 'Aceptar'
+			})
 		} finally {
 			setLoading(false);
 		}
@@ -329,11 +328,6 @@ const Index = () => {
 				</div>
 			</div>
 
-			{error && (
-				<p style={{ color: "var(--color-text-danger)", marginTop: 16 }}>
-					Error: {error}
-				</p>
-			)}
 		</div>
 	);
 };

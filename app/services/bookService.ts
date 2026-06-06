@@ -1,6 +1,8 @@
 import BookFormData from "@/models/interfaces/BookFormData";
+import { ApiErrorResponse } from "@/models/interfaces/ErrorResponse";
 import { ApiResponse } from "@/models/response/ApiResponse";
-import axios from "axios";
+import { ErrorUploadingBook } from "@/utils/constants/ErrorMessages";
+import axios, { AxiosError } from "axios";
 
 export const createBook = async (formData: BookFormData): Promise<string> => {
 	try {
@@ -30,7 +32,8 @@ export const createBook = async (formData: BookFormData): Promise<string> => {
 
 		return data.message;
 	} catch (error) {
-		console.error("Error creating book:", error);
-		return error instanceof Error ? error.message : "Unknown error";
+		const errorResponse = (error as AxiosError<ApiErrorResponse>).response;
+		console.log("Error creando libro:", errorResponse?.data?.message);
+		throw new Error(ErrorUploadingBook);
 	}
 }

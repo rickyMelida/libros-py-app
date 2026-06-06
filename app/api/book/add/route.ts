@@ -1,3 +1,4 @@
+import { ApiErrorResponse } from "@/models/interfaces/ErrorResponse";
 import axios, { AxiosError } from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -12,18 +13,11 @@ export async function POST(req: NextRequest) {
 
 		return NextResponse.json(data, { status: 200 });
 	} catch (error) {
-		if (error instanceof AxiosError) {
-			console.error("[set-book] axios error:", error);
-			return NextResponse.json(
-				{ message: "Error del backend", detail: error.response?.data },
-				{ status: error.response?.status ?? 502 }
-			);
-		}
-
-		console.error("[set-book] error:", error);
+		const errorResponse = (error as AxiosError<ApiErrorResponse>).response;
+		
 		return NextResponse.json(
-			{ message: "Error interno del servidor" },
-			{ status: 500 }
+			{ message: errorResponse?.data },
+			{ status: errorResponse?.data.statusCode || 500 }
 		);
 	}
 }
