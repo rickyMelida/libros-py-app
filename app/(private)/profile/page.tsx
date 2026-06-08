@@ -80,7 +80,10 @@ const ProfilePage = () => {
 				<hr />
 				<div className="row">
 					<div className="col-6 col-md-4 col-xl-3 py-3">
+						{/*
+						TODO - Agregar lógica para mostrar los libros del usuario
 						<Card />
+						*/}
 					</div>
 					<div className="col-6 col-md-4 col-xl-3 py-3">
 						<div  className="card card-add-book border-0 bg-light" 

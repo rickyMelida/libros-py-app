@@ -13,7 +13,12 @@ const FavoritePage = () => {
                 <div className="row">
                     <div className="col-10 offset-2 col-sm-9 offset-sm-3 col-md-5 offset-md-1 col-xl-3 offset-xl-0 py-3">
                         <div>
-                            <Card />
+							<h1>Some</h1>
+                            {/*
+								TODO - Agregar lógica para mostrar los libros favoritos del usuario
+							
+							<Card />
+							*/}
                         </div>
                     </div>
                 </div>
