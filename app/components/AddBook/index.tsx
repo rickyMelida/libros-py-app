@@ -28,6 +28,7 @@ const INITIAL_FORM: BookFormData = {
 	otherDetail: "",
 	year: "",
 	images: [],
+	principalImage: "",
 };
 
 const Index = () => {
@@ -159,16 +160,31 @@ const Index = () => {
 			setPreviews(newPreviews);
 
 			const filesUpload = Array.from(e.target.files ?? []);
-			setForm((prev) => ({ ...prev, images: files }));
+			setForm((prev) => ({
+				...prev,
+				images: files,
+				principalImage: prev.principalImage || files[0]?.name || "",
+			}));
 		},
 		[]
 	);
 
+	const handleSetPrincipal = (index: number) => {
+		setForm(prev => {
+			const file = prev.images[index];
+			return { ...prev, principalImage: file?.name || "" };
+		});
+	};
+
 	const removeImage = (index: number) => {
-		console.log("Removing image at index:", index);
 		setForm(prev => {
 			const newImages = prev.images.filter((_, i) => i !== index);
-			return { ...prev, images: newImages };
+			let newPrincipal = prev.principalImage;
+			const removed = prev.images[index];
+			if (removed && removed.name === prev.principalImage) {
+				newPrincipal = newImages[0]?.name || "";
+			}
+			return { ...prev, images: newImages, principalImage: newPrincipal };
 		});
 		setPreviews(prev => {
 			URL.revokeObjectURL(prev[index].url); // liberar memoria
@@ -222,6 +238,7 @@ const Index = () => {
 								required
 							/>
 						</div>
+
 						<div className="form-group my-4">
 							<label htmlFor="book-year">Año</label>
 							<input
@@ -234,6 +251,7 @@ const Index = () => {
 							/>
 
 						</div>
+
 						<div className="form-group my-4">
 							<label htmlFor="book-state">Estado del Libro</label>
 							<select
@@ -248,6 +266,7 @@ const Index = () => {
 								<option value={3}>Usado - Aceptable</option>
 							</select>
 						</div>
+
 						<div className="form-group my-4">
 							<label htmlFor="book-transactionType">Tipo de Transacción</label>
 							<select
@@ -262,6 +281,7 @@ const Index = () => {
 								<option value={3}>Donación</option>
 							</select>
 						</div>
+
 						<div className="form-group my-4">
 							<label htmlFor="book-description">Descripción</label>
 							<textarea
@@ -274,6 +294,7 @@ const Index = () => {
 								rows={3}
 							/>
 						</div>
+
 						<div className="form-group my-4">
 							<label htmlFor="book-otherDetail">Otros Detalles</label>
 							<textarea
@@ -286,6 +307,7 @@ const Index = () => {
 								rows={2}
 							/>
 						</div>
+						
 						<div className="form-group my-4">
 							<div className="custom-file">
 
@@ -299,9 +321,9 @@ const Index = () => {
 									onChange={handleChangeImage}
 								/>
 								{previews.length > 0 && (
-									<div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '12px' }}>
+									<div className="image-previews">
 										{previews.map((preview, index) => (
-											<div key={index} style={{ position: 'relative' }}>
+											<div key={index} className={`image-preview ${form.principalImage === preview.name ? 'selected' : ''}`}>
 												<Image
 													src={preview.url}
 													alt={preview.name}
@@ -309,7 +331,16 @@ const Index = () => {
 													height={80}
 													style={{ objectFit: 'cover', borderRadius: '6px' }}
 												/>
-												<button className="remove-btn" onClick={() => removeImage(index)}>✕</button>
+												<div className="preview-actions">
+													<button type="button" className="remove-btn" onClick={() => removeImage(index)}>✕</button>
+													<button
+														type="button"
+														className={form.principalImage === preview.name ? 'primary-btn is-primary' : 'primary-btn'}
+														onClick={() => handleSetPrincipal(index)}
+													>
+														{form.principalImage === preview.name ? 'Principal' : 'Marcar principal'}
+													</button>
+												</div>
 											</div>
 										))}
 									</div>

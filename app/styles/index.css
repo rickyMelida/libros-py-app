@@ -107,3 +107,71 @@
 
   .card { margin: 10px 0; }
 }
+
+/* AddBook image preview styles */
+.image-previews {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.image-preview {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(8, 15, 20, 0.08);
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.image-preview img,
+.image-preview picture,
+.image-preview > span {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.image-preview .preview-actions {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: flex;
+  gap: 6px;
+}
+.remove-btn {
+  background: rgba(255,255,255,0.95);
+  border: 1px solid rgba(0,0,0,0.08);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+}
+.remove-btn:hover { border-color: rgba(255,0,0,0.9); color: rgba(255,0,0,0.95); }
+.primary-btn {
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+}
+.primary-btn.is-primary,
+.image-preview.selected {
+  box-shadow: 0 8px 20px rgba(2, 120, 100, 0.16);
+  outline: 2px solid rgba(2, 120, 100, 0.14);
+}
+.primary-btn.is-primary {
+  background: var(--clr-primary);
+  color: white;
+}
+
+@media (max-width: 480px) {
+  .image-preview { width: 64px; height: 64px; }
+  .primary-btn { padding: 3px 6px; font-size: 10px; }
+}

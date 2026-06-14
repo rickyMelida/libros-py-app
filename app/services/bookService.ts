@@ -21,6 +21,7 @@ export const createBook = async (formData: BookFormData): Promise<string> => {
 		body.append("bookRequest.Description", formData.description);
 		body.append("bookRequest.OtherDetail", formData.otherDetail);
 		body.append("bookRequest.Year", formData.year);
+		body.append("bookRequest.PrincipalImage", formData.principalImage);
 
 		formData.images.forEach((file) => {
 			body.append("bookRequest.Images", file);
@@ -30,8 +31,6 @@ export const createBook = async (formData: BookFormData): Promise<string> => {
 			"/api/book/add",
 			body
 		);
-
-		console.log({ data });
 
 		return data.message;
 	} catch (error) {

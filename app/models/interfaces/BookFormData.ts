@@ -9,4 +9,5 @@ export default interface BookFormData {
 	otherDetail: string;
 	year: string;
 	images: File[];
+	principalImage: string;
 }
