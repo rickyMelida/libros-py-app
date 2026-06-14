@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styles from "./index.module.css";
 
-function detectMimeType(base64: string): string {
+export function detectMimeType(base64: string): string {
 	const signatures: Record<string, string> = {
 		"/9j/": "image/jpeg",
 		"iVBORw0": "image/png",
@@ -25,9 +25,10 @@ interface Props {
 	base64Data: string; // sin el prefijo "data:..."
 	height: number;
 	alt: string;
+	width?: number;
 }
 
-export default function Base64Image({ base64Data, height, alt }: Props) {
+export default function Base64Image({ base64Data, height, alt, width }: Props) {
 	const mimeType = detectMimeType(base64Data);
 	const src = `data:${mimeType};base64,${base64Data}`;
 
@@ -35,10 +36,10 @@ export default function Base64Image({ base64Data, height, alt }: Props) {
 		<Image
 			src={src}
 			height={height}
-			width={height * 0.75} // Asumiendo una relación de aspecto de 4:3
+			width={width || height * 0.75} // Asumiendo una relación de aspecto de 4:3
 			alt={alt}
 			className={styles["swiper-image"]}
-			
+
 		/>
 	);
 }

@@ -67,3 +67,17 @@ export const getBooksServiceBySection = async (section: BookSection): Promise<Ap
 		throw new Error("Error obteniendo libros por categoría");
 	}
 }
+
+export const getBookDetailService = async (bookId: number): Promise<ApiResponse<IBookDTOResponse>> => {
+	try {
+		const response = await axios.get<ApiResponse<IBookDTOResponse>>(
+			`/api/book/get-book-detail?id=${bookId}`
+		);
+
+		return response.data;
+	} catch (error) {
+		const errorResponse = (error as AxiosError<ApiErrorResponse>).response;
+		console.log("Error obteniendo detalle del libro:", errorResponse?.data?.message);
+		throw new Error("Error obteniendo detalle del libro");
+	}
+}

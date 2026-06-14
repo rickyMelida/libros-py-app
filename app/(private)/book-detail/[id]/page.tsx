@@ -6,7 +6,7 @@ import BookDetail from '@/components/BookDetail';
 const BookDetailPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
 
-  return <BookDetail />;
+  return <BookDetail bookId={Number(id)}/>;
 };
 
 export default BookDetailPage;
