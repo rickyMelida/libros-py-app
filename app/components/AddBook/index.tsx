@@ -1,13 +1,12 @@
 'use client';
 
-import { IFormElement } from "@/models/interfaces/IFormElement";
 import { Title } from "./Title";
-import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import BookFormData from "@/models/interfaces/BookFormData";
 import Swal from 'sweetalert2';
 import { createBook } from "@/services/bookService";
-import axios from "axios";
-import Image from 'next/image';
+import styles from './preview.module.css';
+import { FormField } from "./FormField";
 
 
 interface PreviewFile {
@@ -32,56 +31,9 @@ const INITIAL_FORM: BookFormData = {
 };
 
 const Index = () => {
-	const formDataElements: IFormElement[] = [
-		{
-			id: "book-title",
-			name: "Titulo del Libro",
-			placeholder: "Ej. Romeo y Julieta",
-			type: "text",
-		},
-		{
-			id: "book-author",
-			name: "Autor del Libro",
-			placeholder: "Ej. William Shakespeare",
-			type: "text",
-		},
-		{
-			id: "book-pages-number",
-			name: "Numero de Páginas",
-			placeholder: "Ej. 162",
-			type: "number",
-		},
-		{
-			id: "book-price",
-			name: "Precio",
-			placeholder: "Sin punto. Ej.65000",
-			type: "number",
-		},
-		{
-			id: "state-bok",
-			name: "Estado del Libro:",
-			type: "select",
-			data: ["Nuevo", "Usado", "Semi Nuevo"],
-		},
-		{
-			id: "state-bok",
-			name: "Lo quiero..",
-			type: "select",
-			data: ["Vender", "Permutar", "Cambiar"],
-		},
-		{
-			id: "mensaje",
-			name: "Descripción",
-			type: "textarea",
-			placeholder: "Ej. El libro tiene pequeños rasguños en la parte de atrás.",
-		},
-		{
-			id: "customFile",
-			type: "file",
-		},
-	];
 	const [previews, setPreviews] = useState<PreviewFile[]>([]);
 	const [form, setForm] = useState<BookFormData>(INITIAL_FORM);
+	const inputRef = useRef<HTMLInputElement | null>(null);
 	const [loading, setLoading] = useState(false);
 	const [messageResult, setMessageResult] = useState<string | null>(null);
 
@@ -98,14 +50,25 @@ const Index = () => {
 		}
 	}, [messageResult]);
 
+	// Cleanup: revoke object URLs when previews change or on unmount
+	useEffect(() => {
+		return () => {
+			previews.forEach(p => URL.revokeObjectURL(p.url));
+		};
+	}, [previews]);
+
 	function handleChange(
 		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
 	) {
 		const { name, value } = e.target;
+
 		setForm((prev) => ({
 			...prev,
 			[name]: ["user", "price", "state", "transactionType"].includes(name)
-				? Number(value)
+				? (name === "price"
+					// eliminar ceros a la izquierda para que "05000" pase a "5000" antes de convertir
+					? Number(value.replace(/^0+(?=\d)/, ""))
+					: Number(value))
 				: value,
 		}));
 	}
@@ -138,6 +101,9 @@ const Index = () => {
 	function resetForm() {
 		setForm(INITIAL_FORM);
 		setPreviews([]);
+		if (inputRef.current) {
+			inputRef.current.value = "";
+		}
 	}
 
 
@@ -159,7 +125,6 @@ const Index = () => {
 
 			setPreviews(newPreviews);
 
-			const filesUpload = Array.from(e.target.files ?? []);
 			setForm((prev) => ({
 				...prev,
 				images: files,
@@ -184,8 +149,18 @@ const Index = () => {
 			if (removed && removed.name === prev.principalImage) {
 				newPrincipal = newImages[0]?.name || "";
 			}
+
+			// Sincronizar el input de tipo file para que el navegador muestre
+			// la cantidad correcta de archivos seleccionados.
+			if (inputRef.current) {
+				const dt = new DataTransfer();
+				newImages.forEach(f => dt.items.add(f));
+				inputRef.current.files = dt.files;
+			}
+
 			return { ...prev, images: newImages, principalImage: newPrincipal };
 		});
+
 		setPreviews(prev => {
 			URL.revokeObjectURL(prev[index].url); // liberar memoria
 			return prev.filter((_, i) => i !== index);
@@ -199,8 +174,13 @@ const Index = () => {
 			<div className="row mb-5">
 				<div className="col-md-6 offset-md-3">
 					<form onSubmit={handleSubmit}>
-						<div className="form-group my-4">
-							<label htmlFor="book-title">Titulo del Libro</label>
+						<FormField
+							label="Título del Libro"
+							id="book-title"
+							popoverTitle="Título del libro"
+							popoverContent="Ingresá el título completo tal como aparece en la portada."
+							placement="right"
+						>
 							<input
 								name="title"
 								placeholder="Título"
@@ -210,10 +190,15 @@ const Index = () => {
 								onChange={handleChange}
 								required
 							/>
-						</div>
+						</FormField>
 
-						<div className="form-group my-4">
-							<label htmlFor="book-author">Autor del Libro</label>
+						<FormField
+							label="Autor del Libro"
+							id="book-author"
+							popoverTitle="Autor del libro"
+							popoverContent="Ingresá el nombre completo del autor."
+							placement="right"
+						>
 							<input
 								name="author"
 								placeholder="Autor"
@@ -223,10 +208,16 @@ const Index = () => {
 								onChange={handleChange}
 								required
 							/>
-						</div>
+						</FormField>
 
-						<div className="form-group my-4">
-							<label htmlFor="book-price">Precio</label>
+						<FormField
+							label="Precio"
+							id="book-price"
+							popoverTitle="Precio del libro"
+							popoverContent="Ingresá el precio del libro."
+							placement="right"
+						>
+							
 							<input
 								name="price"
 								type="number"
@@ -237,10 +228,15 @@ const Index = () => {
 								onChange={handleChange}
 								required
 							/>
-						</div>
+						</FormField>
 
-						<div className="form-group my-4">
-							<label htmlFor="book-year">Año</label>
+						<FormField
+							label="Año"
+							id="book-year"
+							popoverTitle="Año del libro"
+							popoverContent="Ingresá el año de publicación del libro."
+							placement="right"
+						>
 							<input
 								name="year"
 								placeholder="Año (ej. 2023)"
@@ -249,11 +245,15 @@ const Index = () => {
 								value={form.year}
 								onChange={handleChange}
 							/>
+						</FormField>
 
-						</div>
-
-						<div className="form-group my-4">
-							<label htmlFor="book-state">Estado del Libro</label>
+						<FormField
+							label="Estado del Libro"
+							id="book-state"
+							popoverTitle="Estado del libro"
+							popoverContent="Ingresá el estado del libro."
+							placement="right"
+						>
 							<select
 								name="state"
 								className="form-control"
@@ -265,10 +265,15 @@ const Index = () => {
 								<option value={2}>Usado - Buen estado</option>
 								<option value={3}>Usado - Aceptable</option>
 							</select>
-						</div>
+						</FormField>
 
-						<div className="form-group my-4">
-							<label htmlFor="book-transactionType">Tipo de Transacción</label>
+						<FormField
+							label="Tipo de Transacción"
+							id="book-transactionType"
+							popoverTitle="Tipo de transacción"
+							popoverContent="Ingresá el tipo de transacción."
+							placement="right"
+						>
 							<select
 								name="transactionType"
 								className="form-control"
@@ -280,10 +285,15 @@ const Index = () => {
 								<option value={2}>Intercambio</option>
 								<option value={3}>Donación</option>
 							</select>
-						</div>
+						</FormField>
 
-						<div className="form-group my-4">
-							<label htmlFor="book-description">Descripción</label>
+						<FormField
+							label="Descripción"
+							id="book-description"
+							popoverTitle="Descripción del libro"
+							popoverContent="Ingresá una descripción detallada del libro."
+							placement="right"
+						>
 							<textarea
 								name="description"
 								placeholder="Descripción"
@@ -293,10 +303,15 @@ const Index = () => {
 								onChange={handleChange}
 								rows={3}
 							/>
-						</div>
+						</FormField>
 
-						<div className="form-group my-4">
-							<label htmlFor="book-otherDetail">Otros Detalles</label>
+						<FormField
+							label="Otros detalles"
+							id="book-otherDetail"
+							popoverTitle="Otros detalles"
+							popoverContent="Ingresá otros detalles del libro."
+							placement="right"
+						>
 							<textarea
 								name="otherDetail"
 								placeholder="Otros detalles"
@@ -306,9 +321,15 @@ const Index = () => {
 								onChange={handleChange}
 								rows={2}
 							/>
-						</div>
-						
-						<div className="form-group my-4">
+						</FormField>
+
+						<FormField
+							label="Imagenes del Libro"
+							id="book-images"
+							popoverTitle="Imagenes del libro"
+							popoverContent="Si selecciona mas de una imagen, designe una como principal a mostrar."
+							placement="right"
+						>
 							<div className="custom-file">
 
 								{/* Imágenes: multiple permite seleccionar varios archivos */}
@@ -317,29 +338,39 @@ const Index = () => {
 									accept="image/*"
 									className="custom-file-input"
 									id="customFile"
+									ref={inputRef}
 									multiple
 									onChange={handleChangeImage}
 								/>
 								{previews.length > 0 && (
-									<div className="image-previews">
+									<div className={styles.previewGrid}>
 										{previews.map((preview, index) => (
-											<div key={index} className={`image-preview ${form.principalImage === preview.name ? 'selected' : ''}`}>
-												<Image
+											<div key={index} className={styles.imageCard}>
+												<div className={`${styles.mainBadge} ${form.principalImage === preview.name ? styles.active : ''}`}>
+													⭐ Principal
+												</div>
+
+												<img
 													src={preview.url}
 													alt={preview.name}
-													width={80}
-													height={80}
-													style={{ objectFit: 'cover', borderRadius: '6px' }}
+													style={{ width: '100%', height: 130, objectFit: 'cover' }}
 												/>
-												<div className="preview-actions">
-													<button type="button" className="remove-btn" onClick={() => removeImage(index)}>✕</button>
-													<button
-														type="button"
-														className={form.principalImage === preview.name ? 'primary-btn is-primary' : 'primary-btn'}
-														onClick={() => handleSetPrincipal(index)}
-													>
-														{form.principalImage === preview.name ? 'Principal' : 'Marcar principal'}
-													</button>
+
+												<div className={styles.imageInfo}>
+													<label>
+														<input
+															type="radio"
+															name={`mainImage`}
+															value={index}
+															checked={form.principalImage === preview.name}
+															onChange={() => handleSetPrincipal(index)}
+														/>
+														Principal
+													</label>
+
+													<div style={{ marginTop: 8 }}>
+														<button type="button" className={styles.removeBtn} onClick={() => removeImage(index)}>✕</button>
+													</div>
 												</div>
 											</div>
 										))}
@@ -351,7 +382,7 @@ const Index = () => {
 									</small>
 								)}
 							</div>
-						</div>
+						</FormField>
 						<button type="submit" className="btn btn-primary btn-lg btn-block" disabled={loading}>
 							{loading ? "Subiendo…" : "Subir Libro"}
 						</button>
