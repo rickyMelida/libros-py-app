@@ -9,8 +9,13 @@ interface IBook {
   year?: string;
 }
 
+interface PrincipalImage {
+	picture: string;
+	isPrincipal: boolean;
+}
+
 export interface IBookDTOResponse extends IBook {
   id: number;
   userName: string;
-  images: string[];
+  images: PrincipalImage[];
 }

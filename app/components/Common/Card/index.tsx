@@ -17,7 +17,7 @@ const Index = ({ bookData }: CardProps) => {
 			<div className={`id-${uuidv4()}`}>
 				<Link href={`/book-detail/${bookData.id}`}>
 					<Base64Image
-						base64Data={bookData.images[0]}
+						base64Data={bookData.images.find((image) => image.isPrincipal)?.picture || ""}
 						height={400}
 						alt={`Book ${bookData.id}`}
 					/>
