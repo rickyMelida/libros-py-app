@@ -6,6 +6,7 @@ import Link from "next/link";
 import { IBookDTOResponse } from "@/models/interfaces/IBookResponse";
 import Base64Image from "../ImageBase64/Index";
 import { TransactionType } from "@/models/enums/TransactionType";
+import { BookState } from "@/models/enums/BookState";
 
 type CardProps = {
 	bookData: IBookDTOResponse
@@ -27,7 +28,7 @@ const Index = ({ bookData }: CardProps) => {
 				<h5 className="card-title mb-2">{bookData.title}</h5>
 				<hr className="mx-2" />
 				<div className="card-text">
-					<div><strong>Estado: </strong>{bookData.description}</div>
+					<div><strong>Estado: </strong>{BookState[bookData.state]}</div>
 					<div><strong>Para: </strong>{TransactionType[bookData.transactionType]}</div>
 					<strong className="text-success d-block"></strong>
 				</div>

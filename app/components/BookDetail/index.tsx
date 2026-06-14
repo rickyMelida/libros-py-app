@@ -2,18 +2,21 @@ import { IBookDTOResponse } from "@/models/interfaces/IBookResponse";
 import { getBookDetailService } from "@/services/bookService";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import book from "~/public/img/books/libro6.jpg";
-import yellowStar from "~/public/img/estrella_amarilla.png";
-import grayStar from "~/public/img/estrella_gris.png";
-import facebookIcon from "~/public/img/facebook.svg";
-import instagramIcon from "~/public/img/instagram.svg";
-import twitterIcon from "~/public/img/twitter.svg";
 import Loading from "../Common/Loading/Index";
-import Base64Image, { detectMimeType } from "../Common/ImageBase64/Index";
+import { detectMimeType } from "../Common/ImageBase64/Index";
+import { TransactionType } from "@/models/enums/TransactionType";
+import { BookState } from "@/models/enums/BookState";
 
 const Index = ({ bookId }: { bookId: number }) => {
 	const [bookDetail, setBookDetail] = useState<IBookDTOResponse | null>(null);
 	const [loading, setLoading] = useState<boolean>(true);
+	const [bookToShow, setBookToShow] = useState<any>({id: null, picture: null});
+
+	const borderImages = {
+		"none":"book-image m-2 ",
+		"bordered":"book-image m-2 border border-success border-4",
+		
+	};
 
 	const convertBase64 = (base64Data: string | any) => {
 		const mimeType = detectMimeType(base64Data);
@@ -27,6 +30,10 @@ const Index = ({ bookId }: { bookId: number }) => {
 			try {
 				const bookDetail = await getBookDetailService(bookId);
 				setBookDetail(bookDetail.data);
+				setBookToShow({
+					id: null,
+					picture: convertBase64(bookDetail.data.images.find(img => img.isPrincipal)?.picture || "")
+				});
 			} catch (error) {
 				console.error("Error obteniendo detalle del libro:", error);
 			} finally {
@@ -38,11 +45,25 @@ const Index = ({ bookId }: { bookId: number }) => {
 	}, [bookId]);
 
 
-	useEffect(() => {
-		if (bookDetail) {
-			console.log("Book Detail:", bookDetail);
-		}
-	}, [bookDetail]);
+	const formatearGuarani = (valor: number | undefined): string => {
+		if (valor === undefined) return "₲ 0";
+
+		return new Intl.NumberFormat('es-PY', {
+			style: 'currency',
+			currency: 'PYG',
+			minimumFractionDigits: 0, // Guaraní has no decimal places
+			maximumFractionDigits: 0,
+		}).format(valor);
+	};
+
+	const handleBookToShow = (id: number, img: any) => {
+		setBookToShow((prev: any) => ({
+			...prev,
+			id,
+			picture: convertBase64(img.picture),
+		}));
+	}
+
 	return (
 		<div className="container">
 
@@ -50,7 +71,7 @@ const Index = ({ bookId }: { bookId: number }) => {
 				<div className="col-12 col-sm-10 offset-sm-2 col-md-9 offset-md-3 col-xl-10 offset-xl-2">
 
 					<Image
-						src={convertBase64(bookDetail?.images.find(img => img.isPrincipal)?.picture || "")}
+						src={bookToShow.picture || "/placeholder.png"}
 						className="book-image"
 						alt=""
 						height="500"
@@ -69,9 +90,13 @@ const Index = ({ bookId }: { bookId: number }) => {
 								src={convertBase64(img.picture)}
 								key={index}
 								alt=""
-								className="book-image"
+								className={ 
+									(bookToShow.id == null && img.isPrincipal == true) || bookToShow.id == index
+										? borderImages.bordered 
+										: borderImages.none}
 								width="90"
 								height="130"
+								onClick={() => handleBookToShow(index, img)}
 							/>
 						))
 					}
@@ -88,7 +113,7 @@ const Index = ({ bookId }: { bookId: number }) => {
 
 				<div className="row">
 					<div className="col-12 col-md-4">
-						<h3 className="book-price">₲ {bookDetail?.price}</h3>
+						<h3 className="book-price">{formatearGuarani(bookDetail?.price)}</h3>
 					</div>
 
 					<div className="col-12 col-md-4">
@@ -99,7 +124,7 @@ const Index = ({ bookId }: { bookId: number }) => {
 						<form>
 							<div className="form-group">
 								<select className="form-control" id="exampleFormControlSelect1" disabled>
-									<option>{bookDetail?.transactionType}</option>
+									<option>{TransactionType[bookDetail?.transactionType || 1]}</option>
 								</select>
 							</div>
 						</form>
@@ -121,7 +146,7 @@ const Index = ({ bookId }: { bookId: number }) => {
 
 								<div className="mb-2">
 									<strong className="m-2">Estado del libro: </strong>
-									<span className="text-primary py-1">{bookDetail?.state}</span>
+									<span className="text-primary py-1">{BookState[bookDetail?.state || 1]}</span>
 								</div>
 								<div className="mb-2">
 									<strong className="m-2">Descripción: </strong>

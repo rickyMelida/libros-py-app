@@ -9,6 +9,7 @@ import Base64Image from "../ImageBase64/Index";
 import { ApiResponse } from "@/models/response/ApiResponse";
 import { IImage } from "@/models/interfaces/IImage";
 import Loading from "../Loading/Index";
+import Link from "next/link";
 
 const Index = () => {
 	const [loading, setLoading] = useState(true);
@@ -39,7 +40,7 @@ const Index = () => {
 		<div className={styles["carousel-responsive-container"]}>
 			{
 				loading ? (
-					<Loading size="md" /> 
+					<Loading size="md" />
 				) :
 					(<Swiper
 						spaceBetween={20}
@@ -55,11 +56,13 @@ const Index = () => {
 					>
 						{mainBooks?.data.map((img, index) => (
 							<SwiperSlide key={index}>
-								<Base64Image 
-									base64Data={img.picture}
-									height={400}
-									alt={`Book ${index + 1}`}
-								/>
+								<Link href={`/book-detail/${img.bookId}`} >
+									<Base64Image
+										base64Data={img.picture}
+										height={400}
+										alt={`Book ${index + 1}`}
+									/>
+								</Link>
 							</SwiperSlide>
 						))}
 					</Swiper>)
