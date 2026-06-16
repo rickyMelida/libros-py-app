@@ -36,6 +36,7 @@ const Index = () => {
 	const inputRef = useRef<HTMLInputElement | null>(null);
 	const [loading, setLoading] = useState(false);
 	const [messageResult, setMessageResult] = useState<string | null>(null);
+	const [showFields, setShowFields] = useState(false);
 
 	useEffect(() => {
 		if (messageResult) {
@@ -45,7 +46,7 @@ const Index = () => {
 				icon: 'success',
 				confirmButtonText: 'Aceptar'
 			}).then(() => {
-				resetForm();
+				console.log('ok')//resetForm();
 			});
 		}
 	}, [messageResult]);
@@ -84,6 +85,8 @@ const Index = () => {
 		setMessageResult(null);
 
 		try {
+			setShowFields(true);
+			console.log({form})
 			const response = await createBook(form);
 			setMessageResult(response);
 		} catch (err: any) {
@@ -167,10 +170,31 @@ const Index = () => {
 		});
 	};
 
+	const showProperties = (data: BookFormData) => {
+		return `
+			Title: ${data.title}  
+			Author: ${data.author}
+			Price: ${data.price}
+			Year: ${data.year}
+			Book Estate: ${data.state}
+			Transaction Type: ${data.transactionType}
+			Description: ${data.description}
+			OtherDetails: ${data.otherDetail}
+			Image: ${data.images.map(e => e.name)}
+		`
+	}
+
 	return (
 		<div className="container">
 
 			<Title />
+			<div>
+				{
+					showFields && (
+						showProperties(form)
+					)
+				}
+			</div>
 			<div className="row mb-5">
 				<div className="col-md-6 offset-md-3">
 					<form onSubmit={handleSubmit}>
