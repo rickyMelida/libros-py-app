@@ -11,7 +11,7 @@ import { UserService } from "./userService";
 const supabase = createClient();
 
 export class AuthService {
-	
+
 
 	register = async (
 		credential: IUserCredential
@@ -61,6 +61,14 @@ export class AuthService {
 			console.error("Error logging out:", error);
 		}
 	};
+
+	resetPassword = async (email: string) => {
+		const { error } = await supabase.auth.resetPasswordForEmail(email, {
+			redirectTo: 'https://libroslibrespy.vercel.app/reset-password', // URL de tu app
+		})
+
+		return error;
+	}
 
 	validateToken = async (token: string): Promise<User | null> => {
 		try {

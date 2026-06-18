@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ICredential } from "@/models/interfaces/ICredential";
 import { useRouter, useSearchParams } from "next/navigation";
 import { AuthService } from "@/services/authService";
+import Swal from "sweetalert2";
 
 const Index = () => {
 	const router = useRouter();
@@ -38,6 +39,30 @@ const Index = () => {
 		router.push("/home");
 	}
 
+	const handleResetPassword = async () => {
+		const error = await authService.resetPassword(credentials.email);
+
+		if(error){
+
+			Swal.fire({
+				title: 'Cambio Contraseña',
+				text: error.message,
+				icon: 'warning',
+				confirmButtonText: 'Aceptar'
+			}).then(() => {
+				return;
+			});
+			return;	
+		}
+		Swal.fire({
+			title: 'Cambio Contraseña',
+			text: "Revisa tu correo! Te enviamos un enlace para restablecer tu contraseña.",
+			icon: 'info',
+			confirmButtonText: 'Aceptar'
+		}).then(() => {
+			console.log('ok')//resetForm();
+		});
+	}
 
 	return (
 		<div className="auth-page">
@@ -49,7 +74,7 @@ const Index = () => {
 				</div>
 
 				<form>
-					{ externalMessage && <div className="alert alert-info mt-3 text-center" role="alert">{externalMessage}</div> }
+					{externalMessage && <div className="alert alert-info mt-3 text-center" role="alert">{externalMessage}</div>}
 					<div className="form-group py-1">
 						<label htmlFor="email">Correo electrónico</label>
 						<input type="email"
@@ -75,11 +100,20 @@ const Index = () => {
 						onClick={(e) => submitLogin(e)}
 
 					>
-						{ loading ? "Iniciando sesión..." : "Iniciar Sesión" }
+						{loading ? "Iniciando sesión..." : "Iniciar Sesión"}
 					</button>
 					{
 						error && <div className="alert alert-danger mt-3 text-center" role="alert">{error}</div>
 					}
+
+					<div className="auth-footer-text">
+						<a style={{ cursor: "pointer" }}
+							className="link-opacity-100-hover"
+							onClick={handleResetPassword}
+						>
+							¿Olvidates tu contraseña?
+						</a>
+					</div>
 
 					<div className="auth-divider mt-4">
 						<span>¿Eres nuevo por aquí?</span>

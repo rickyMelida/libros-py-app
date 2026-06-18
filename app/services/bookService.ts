@@ -36,7 +36,8 @@ export const createBook = async (formData: BookFormData): Promise<string> => {
 	} catch (error) {
 		const errorResponse = (error as AxiosError<ApiErrorResponse>).response;
 		console.log("Error creando libro:", errorResponse?.data?.message);
-		throw new Error(ErrorUploadingBook);
+		throw new Error(errorResponse?.data.message);
+		//throw new Error(ErrorUploadingBook);
 	}
 }
 
