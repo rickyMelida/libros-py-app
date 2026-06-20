@@ -67,7 +67,22 @@ export class AuthService {
 			redirectTo: 'https://libroslibrespy.vercel.app/reset-password', // URL de tu app
 		})
 
-		return error;
+		if (error)
+			return { error: error.message, message: error.message }
+
+		return { error: null, message: 'Revisa tu correo! Te enviamos un enlace para restablecer tu contraseña.' }
+	}
+
+	updatePassword = async (newPassword: string) => {
+		const { error } = await supabase.auth.updateUser({
+			password: newPassword,
+		})
+
+		if (error)
+			return { error: error.message, message: error.message }
+
+		return { error: null, message: '¡Contraseña actualizada con éxito! Ya puedes iniciar sesión.' }
+
 	}
 
 	validateToken = async (token: string): Promise<User | null> => {

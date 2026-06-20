@@ -16,13 +16,9 @@ const Index = () => {
 	const supabase = createClient();
 
 	const [userData, setUserData] = useState<IUserCredential>({
-		name: "",
-		email: "",
-		phone: "",
 		password: "",
 		confirmPassword: "",
 	});
-	const [alertMessage, setAlertMessage] = useState("");
 
 	const getDataFromForm = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const result = { [event.target.name]: event.target.value };
@@ -39,69 +35,45 @@ const Index = () => {
 		})
 
 		return () => listener.subscription.unsubscribe()
-	}, [])
+	}, []);
 
-	const sendData = () => {
-		setLoading(true);
-		const [isFormDataValid, message] = isValidateData(userData);
+	const isValidateData = (formData: any): boolean => {
+		const { password, confirmPassword } = formData;
 
-		if (!isFormDataValid) {
-			setAlertMessage(message);
-			return;
-		}
-
-		authService.register(userData)
-			.then((res: any) => {
-				const emailParam = encodeURIComponent(res.user.email);
-				router.push(`/email-verification?email=${emailParam}`);
-			})
-			.catch((err) => {
-				console.log({ err });
-			})
-			.finally(() => {
-				setLoading(false);
-			});
-	};
-
-	const isValidateData = (formData: any): [boolean, string] => {
-		const { name, email, phone, password, confirmPassword } = formData;
-
-		if (name.trim() === "") return [false, "El campo Nombre es requerido"];
-
-		if (email.trim() === "") return [false, "El campo email es requerido"];
-
-		if (password.trim() === "")
-			return [false, "El campo contraseña es requerido"];
-
-		if (confirmPassword.trim() === "")
-			return [false, "El campo confirmar contraseña campo es requerdio"];
-
-		if (password !== confirmPassword)
-			return [false, "Las contraseñas no coinciden!"];
-
-		return [true, ""];
+		return password.trim() === confirmPassword.trim();
 	};
 
 	const handleUpdatePassword = async () => {
 		setLoading(true)
 		setError('')
 
-		const { error } = await supabase.auth.updateUser({
-			password: userData.password,
-		})
-
-		if (error) {
-			setError(error.message)
-		} else {
+		if (!isValidateData(userData)) {
 			Swal.fire({
-				title: '¡Contraseña Cambiada!',
-				text: "¡Contraseña actualizada con éxito! Ya puedes iniciar sesión.",
-				icon: 'success',
+				title: '¡Advertencia!',
+				text: 'Las contraseñas no coinciden',
+				icon: 'warning',
 				confirmButtonText: 'Aceptar'
 			}).then(() => {
-				console.log('ok')//resetForm();
+				router.push("/login");
 			});
+			return;
 		}
+
+		const { error, message } = await authService.updatePassword(userData.password)
+		if (error) {
+			setError(message)
+			return;
+		}
+
+		Swal.fire({
+			title: '¡Contraseña Cambiada!',
+			text: message,
+			icon: 'success',
+			confirmButtonText: 'Aceptar'
+		}).then(() => {
+			router.push("/login");
+		});
+
 
 		setLoading(false)
 	}
@@ -127,7 +99,7 @@ const Index = () => {
 						<input type="password" className="form-control" id="password-confirm" name="confirmPassword" placeholder="Repetir contraseña" value={userData.confirmPassword} onChange={getDataFromForm} />
 					</div>
 
-					<button type="button" id="btn-create-account" className="btn btn-dark btn-lg btn-block mt-3" onClick={sendData} disabled={loading}>
+					<button type="button" id="btn-create-account" className="btn btn-dark btn-lg btn-block mt-3" onClick={handleUpdatePassword} disabled={loading}>
 						{loading ? "Cambiando contraseña..." : "Cambiar Contraseña"}
 					</button>
 

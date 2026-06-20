@@ -17,6 +17,7 @@ const Index = () => {
 		password: "",
 	});
 	const [loading, setLoading] = useState<boolean>(false);
+	const [alertMessage, setAlertMessage] = useState<string>('');
 
 	const handleInputs = (key: string, value: string) => {
 		setError("");
@@ -40,27 +41,36 @@ const Index = () => {
 	}
 
 	const handleResetPassword = async () => {
-		const error = await authService.resetPassword(credentials.email);
+		Swal.fire<string>({
+			title: "Ingrese su correo electrónico",
+			input: "text",
+			inputAttributes: { autocapitalize: "off" },
+			showCancelButton: true,
+			confirmButtonText: "Continuar",
+			showLoaderOnConfirm: true,
+			preConfirm: async (email) => {
+				try {
+					const { error, message } = await authService.resetPassword(email);
 
-		if(error){
+					if (error)
+						setError(message);
 
-			Swal.fire({
-				title: 'Cambio Contraseña',
-				text: error.message,
-				icon: 'warning',
-				confirmButtonText: 'Aceptar'
-			}).then(() => {
-				return;
-			});
-			return;	
-		}
-		Swal.fire({
-			title: 'Cambio Contraseña',
-			text: "Revisa tu correo! Te enviamos un enlace para restablecer tu contraseña.",
-			icon: 'info',
-			confirmButtonText: 'Aceptar'
-		}).then(() => {
-			console.log('ok')//resetForm();
+					return message
+				} catch (error) {
+					setError(error as string);
+				}
+			},
+			allowOutsideClick: () => !Swal.isLoading()
+		}).then((result) => {
+			if (result.isConfirmed)
+				Swal.fire({
+					title: 'Cambio Contraseña',
+					text: result.value,
+					icon: 'info',
+					confirmButtonText: 'Aceptar'
+				}).then(() => {
+					router.push("/login");
+				});
 		});
 	}
 
@@ -111,7 +121,7 @@ const Index = () => {
 							className="link-opacity-100-hover"
 							onClick={handleResetPassword}
 						>
-							¿Olvidates tu contraseña?
+							¿Olvidaste tu contraseña?
 						</a>
 					</div>
 
