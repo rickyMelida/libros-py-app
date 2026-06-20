@@ -87,3 +87,9 @@ li .d-block {
   border: 1px solid var(--clr-border);
   box-shadow: var(--shadow-sm);
 }
+
+@media only screen and (max-width: 768px) {
+	.avatar {
+		margin-left: 20%;
+	}	
+}

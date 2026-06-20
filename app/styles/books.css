@@ -85,3 +85,10 @@
   background: var(--clr-primary);
   color: #fff;
 }
+
+
+@media only screen and (max-width: 768px) {
+	.card-add-book {
+		height: 200px !important;
+	}
+}
