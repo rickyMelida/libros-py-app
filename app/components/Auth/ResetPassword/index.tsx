@@ -54,9 +54,8 @@ const Index = () => {
 				text: 'Las contraseñas no coinciden',
 				icon: 'warning',
 				confirmButtonText: 'Aceptar'
-			}).then(() => {
-				router.push("/login");
 			});
+			
 			return;
 		}
 
