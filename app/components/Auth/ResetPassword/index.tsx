@@ -6,20 +6,24 @@ import { IUserCredential } from "@/models/interfaces/IUserCredential";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import Swal from "sweetalert2";
+import { SweetAlertModel } from "@/models/interfaces/SweetAlertModel";
+
+const FORM_INITIAL_STATE: IUserCredential = {
+	email: "",
+	password: "",
+	confirmPassword: "",
+}
 
 const Index = () => {
+	const [userData, setUserData] = useState<IUserCredential>(FORM_INITIAL_STATE);
+	const authService = new AuthService();
 	const router = useRouter();
 	const [loading, setLoading] = useState(false);
 	const [ready, setReady] = useState(false);
 	const [error, setError] = useState('');
-	const authService = new AuthService();
+	const [alertMessage, setAlertMessage] = useState<SweetAlertModel | null>(null);
 	const supabase = createClient();
 
-	const [userData, setUserData] = useState<IUserCredential>({
-		email: "",
-		password: "",
-		confirmPassword: "",
-	});
 
 	const getDataFromForm = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const result = { [event.target.name]: event.target.value };
@@ -27,12 +31,9 @@ const Index = () => {
 	};
 
 	useEffect(() => {
-		// Supabase detecta automáticamente el token en la URL
-		// y establece la sesión. Solo hay que escuchar el evento.
 		const { data: listener } = supabase.auth.onAuthStateChange((event) => {
-			if (event === 'PASSWORD_RECOVERY') {
+			if (event === 'PASSWORD_RECOVERY')
 				setReady(true) // El token es válido, mostrar el formulario
-			}
 		})
 
 		return () => listener.subscription.unsubscribe()
@@ -44,42 +45,53 @@ const Index = () => {
 		return password.trim() === confirmPassword.trim();
 	};
 
+	useEffect(() => {
+		if(alertMessage?.message)
+			Swal.fire({
+				title: alertMessage.title,
+				text: alertMessage.message,
+				icon: alertMessage.type,
+				confirmButtonText: 'Aceptar'
+			}).then(() => {
+				setLoading(false);
+				setAlertMessage(null);
+				alertMessage.event
+			})
+	}, [alertMessage])
+
 	const handleUpdatePassword = async () => {
 		setLoading(true)
 		setError('')
 
 		if (!isValidateData(userData)) {
-			Swal.fire({
+			setAlertMessage({
 				title: '¡Advertencia!',
-				text: 'Las contraseñas no coinciden',
-				icon: 'warning',
-				confirmButtonText: 'Aceptar'
+				message: 'Las contraseñas no coinciden',
+				type: 'warning'
 			});
-			
+
 			return;
 		}
 
 		const { error, message } = await authService.updatePassword(userData.password)
 		if (error) {
 			setError(message)
+			setLoading(false)
 			return;
 		}
 
-		Swal.fire({
-			title: '¡Contraseña Cambiada!',
-			text: message,
-			icon: 'success',
-			confirmButtonText: 'Aceptar'
-		}).then(() => {
-			router.push("/login");
-		});
-
+		setAlertMessage({
+				title: '¡Contraseña Cambiada!',
+				message: message,
+				type: 'success',
+				event: router.push("/login")
+			});
 
 		setLoading(false)
 	}
-	if (!ready) {
-		return <p>Verificando enlace...</p>
-	}
+	if (!ready)
+		return <p className="text-center mt-5">Verificando enlace...</p>
+	
 	return (
 		<div className="auth-page">
 			<div className="auth-card">

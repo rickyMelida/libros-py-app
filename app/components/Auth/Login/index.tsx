@@ -17,7 +17,6 @@ const Index = () => {
 		password: "",
 	});
 	const [loading, setLoading] = useState<boolean>(false);
-	const [alertMessage, setAlertMessage] = useState<string>('');
 
 	const handleInputs = (key: string, value: string) => {
 		setError("");
