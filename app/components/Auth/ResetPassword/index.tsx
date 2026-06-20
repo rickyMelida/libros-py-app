@@ -16,6 +16,7 @@ const Index = () => {
 	const supabase = createClient();
 
 	const [userData, setUserData] = useState<IUserCredential>({
+		email: "",
 		password: "",
 		confirmPassword: "",
 	});
