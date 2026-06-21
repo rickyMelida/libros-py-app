@@ -7,9 +7,7 @@ export default function HomePage() {
 	return (
 		<>
 			<Carousel />
-			<Main title="Lo mas destacado" section={BookSection.Featured} />
-			<Main title="Lo mas reciente" section={BookSection.Recent} />
-			<Main title="Otros libros" section={BookSection.Other} />
+			<Main />
 		</>
 	);
 }

@@ -1,94 +1,316 @@
-/* ── books.css — Cards de libros ─────────────────────── */
+  /* ---- Categorías rápidas ---- */
+  .category-pill {
+  	background: var(--card-bg);
+  	border-radius: 14px;
+  	padding: .8rem .5rem;
+  	text-align: center;
+  	box-shadow: 0 4px 14px rgba(0, 0, 0, .05);
+  	color: #374151;
+  	text-decoration: none;
+  	display: block;
+  	transition: transform .15s ease, box-shadow .15s ease;
+  	height: 100%;
+  }
 
-/* Badge transacción */
-#img-transaction {
-  float: right;
-  filter: invert(30%) sepia(60%) saturate(500%) hue-rotate(120deg);
-}
+  .category-pill:hover {
+  	transform: translateY(-3px);
+  	box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+  	color: var(--accent);
+  }
 
-/* Avatar pequeño en cards */
-.avatar {
-  vertical-align: middle;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 2px solid var(--clr-primary-light);
-  overflow: hidden;
-  object-fit: cover;
-}
+  .category-pill i {
+  	font-size: 1.4rem;
+  	color: var(--accent);
+  	margin-bottom: .4rem;
+  	display: block;
+  }
 
-/* Card agregar libro */
-#card-add-book {
-  cursor: default;
-  border: 2px dashed var(--clr-border) !important;
-  background: var(--clr-bg) !important;
-  box-shadow: none !important;
-  transition: border-color var(--transition) !important;
-}
-#card-add-book:hover {
-  border-color: var(--clr-primary) !important;
-  box-shadow: none !important;
-  transform: none !important;
-}
+  .category-pill span {
+  	font-size: .78rem;
+  	font-weight: 500;
+  }
 
-.image-add-book {
-  margin-top: 80px;
-  opacity: .25;
-  cursor: pointer;
-  transition: opacity var(--transition), transform var(--transition);
-  filter: invert(30%) sepia(60%) saturate(500%) hue-rotate(120deg);
-}
-.image-add-book:hover {
-  opacity: .85;
-  transform: scale(1.08);
-}
+  /* ---- Secciones ---- */
+  .section-title {
+  	display: flex;
+  	justify-content: space-between;
+  	align-items: center;
+  	margin: 2.5rem 0 1.2rem;
+  }
 
-.card-add-book {
-  height: 70vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
+  .section-title h4 {
+  	font-weight: 700;
+  	margin: 0;
+  }
 
-/* Bookmark favorito */
-#bookmarkContainer {
-  position: relative;
-  top: -49px;
-  right: 20px;
-  text-align: right;
-}
-#bookmarkContainer img {
-  width: 22px;
-  cursor: pointer;
-  transition: filter var(--transition), transform var(--transition);
-  filter: invert(60%);
-}
-#bookmarkContainer img:hover {
-  filter: invert(30%) sepia(80%) saturate(800%) hue-rotate(30deg);
-  transform: scale(1.2);
-}
+  .section-title .ver-todo {
+  	font-size: .9rem;
+  	color: var(--accent);
+  	text-decoration: none;
+  	font-weight: 600;
+  }
 
-/* Boton contactar en cards */
-.card .btn-outline-success,
-.card .btn-success {
-  border-color: var(--clr-primary);
-  color: var(--clr-primary);
-  font-size: .82rem;
-  font-weight: 600;
-  border-radius: var(--radius-full);
-  padding: .35rem .9rem;
-  transition: background var(--transition), color var(--transition);
-}
-.card .btn-outline-success:hover,
-.card .btn-success:hover {
-  background: var(--clr-primary);
-  color: #fff;
-}
+  .badge-destacado {
+  	background: #f5a623;
+  }
 
+  /* ---- Card de producto (home) ---- */
+  .product-card {
+  	border: 1px solid var(--border);
+  	border-radius: 16px;
+  	overflow: hidden;
+  	transition: transform .15s ease, box-shadow .15s ease;
+  	background: var(--card-bg);
+  	height: 100%;
+  	display: flex;
+  	flex-direction: column;
+  }
 
-@media only screen and (max-width: 768px) {
-	.card-add-book {
-		height: 200px !important;
-	}
-}
+  .product-card:hover {
+  	transform: translateY(-4px);
+  	box-shadow: 0 10px 24px rgba(0, 0, 0, .08);
+  }
+
+  .product-img-wrap {
+  	position: relative;
+  }
+
+  .product-img-wrap img {
+  	height: 170px;
+  	object-fit: cover;
+  	width: 100%;
+  	display: block;
+  }
+
+  /* Botón de favorito sobre la imagen */
+  .btn-fav {
+  	position: absolute;
+  	top: .6rem;
+  	right: .6rem;
+  	width: 36px;
+  	height: 36px;
+  	border-radius: 50%;
+  	background: rgba(255, 255, 255, .92);
+  	border: none;
+  	display: flex;
+  	align-items: center;
+  	justify-content: center;
+  	color: #9ca3af;
+  	box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
+  	transition: transform .12s ease, color .12s ease;
+  }
+
+  .btn-fav:hover {
+  	transform: scale(1.08);
+  }
+
+  .btn-fav.active,
+  .btn-fav.active i {
+  	color: #e74c3c;
+  }
+
+  .btn-fav i {
+  	font-size: 1rem;
+  	pointer-events: none;
+  }
+
+  .badge-tag {
+  	position: absolute;
+  	top: .6rem;
+  	left: .6rem;
+  	font-size: .68rem;
+  	font-weight: 700;
+  	padding: .35em .7em;
+  }
+
+  .product-body {
+  	padding: .9rem 1rem 1rem;
+  	display: flex;
+  	flex-direction: column;
+  	flex-grow: 1;
+  }
+
+  .product-title {
+  	font-size: .95rem;
+  	font-weight: 600;
+  	margin-bottom: .3rem;
+  	line-height: 1.3;
+  	/* recorta a 2 líneas */
+  	display: -webkit-box;
+  	-webkit-line-clamp: 2;
+  	-webkit-box-orient: vertical;
+  	overflow: hidden;
+  }
+
+  .product-price {
+  	font-weight: 700;
+  	color: var(--accent);
+  	font-size: 1.05rem;
+  	margin-bottom: .6rem;
+  }
+
+  /* ---- Footer de card: vendedor + comprar ---- */
+  .product-footer {
+  	margin-top: auto;
+  	display: flex;
+  	align-items: center;
+  	justify-content: space-between;
+  	gap: .6rem;
+  	border-top: 1px solid var(--border);
+  	padding-top: .7rem;
+  }
+
+  .seller-info {
+  	display: flex;
+  	align-items: center;
+  	gap: .5rem;
+  	min-width: 0;
+  }
+
+  .seller-avatar {
+  	width: 30px;
+  	height: 30px;
+  	border-radius: 50%;
+  	object-fit: cover;
+  	border: 2px solid var(--accent-light);
+  	flex-shrink: 0;
+  }
+
+  .seller-name {
+  	font-size: .75rem;
+  	color: var(--text-muted);
+  	white-space: nowrap;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+  	max-width: 90px;
+  }
+
+  .btn-comprar {
+  	background: var(--accent);
+  	color: white;
+  	border: none;
+  	border-radius: 50px;
+  	font-size: .78rem;
+  	font-weight: 600;
+  	padding: .4rem .9rem;
+  	flex-shrink: 0;
+  	white-space: nowrap;
+  }
+
+  .btn-comprar:hover {
+  	background: #265c41;
+  	color: white;
+  }
+
+  /* ---- Scroll horizontal para destacados en mobile ---- */
+  .scroll-row {
+  	display: flex;
+  	gap: 1rem;
+  	overflow-x: auto;
+  	padding-bottom: .5rem;
+  	scroll-snap-type: x mandatory;
+  	-ms-overflow-style: none;
+  	scrollbar-width: none;
+  }
+
+  .scroll-row::-webkit-scrollbar {
+  	display: none;
+  }
+
+  .scroll-row .scroll-item {
+  	flex: 0 0 220px;
+  	scroll-snap-align: start;
+  }
+
+  /* =========================================================
+     RESPONSIVE
+     ========================================================= */
+  @media (max-width: 768px) {
+  	.product-img-wrap img {
+  		height: 150px;
+  	}
+  }
+
+  @media (max-width: 576px) {
+  	.hero-banner {
+  		padding: 1.2rem 0 2.2rem;
+  		border-radius: 0 0 20px 20px;
+  	}
+
+  	.hero-banner h2 {
+  		font-size: 1.3rem;
+  	}
+
+  	.hero-banner p {
+  		font-size: .85rem;
+  	}
+
+  	.navbar-custom .navbar-brand {
+  		font-size: 1.1rem;
+  	}
+
+  	.section-title {
+  		margin: 1.8rem 0 .9rem;
+  	}
+
+  	.section-title h4 {
+  		font-size: 1.05rem;
+  	}
+
+  	.category-pill {
+  		padding: .6rem .3rem;
+  	}
+
+  	.category-pill i {
+  		font-size: 1.2rem;
+  	}
+
+  	.category-pill span {
+  		font-size: .68rem;
+  	}
+
+  	.product-img-wrap img {
+  		height: 120px;
+  	}
+
+  	.product-title {
+  		font-size: .82rem;
+  	}
+
+  	.product-price {
+  		font-size: .92rem;
+  		margin-bottom: .4rem;
+  	}
+
+  	.product-body {
+  		padding: .7rem .8rem .8rem;
+  	}
+
+  	.seller-avatar {
+  		width: 24px;
+  		height: 24px;
+  	}
+
+  	.seller-name {
+  		max-width: 60px;
+  		font-size: .68rem;
+  	}
+
+  	.btn-comprar {
+  		font-size: .68rem;
+  		padding: .35rem .65rem;
+  	}
+
+  	.btn-fav {
+  		width: 30px;
+  		height: 30px;
+  	}
+
+  	.btn-fav i {
+  		font-size: .85rem;
+  	}
+
+  	.scroll-row .scroll-item {
+  		flex: 0 0 150px;
+  	}
+  }
