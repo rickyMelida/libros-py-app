@@ -1,36 +1,51 @@
 import Image from "next/image";
 import avatar from "~/public/img/avatar.svg";
-import bookmark from "~/public/img/bookmark.svg";
-import { v4 as uuidv4 } from "uuid";
 import Link from "next/link";
 import { IBookDTOResponse } from "@/models/interfaces/IBookResponse";
 import Base64Image from "../ImageBase64/Index";
-import { TransactionType } from "@/models/enums/TransactionType";
-import { BookState } from "@/models/enums/BookState";
 import { Heart } from "lucide-react";
+import { abbreviateName, formatearGuaranies, getBookState, getTransactionType } from "@/utils/util";
 
 type CardProps = {
 	bookData: IBookDTOResponse
 };
 
-//const Index = ({ bookData }: CardProps) => {
-const Index = () => {
+const Index = ({ bookData }: CardProps) => {
+	console.log({ bookData })
 	return (
 		<div className="product-card">
 			<div className="product-img-wrap">
-				<img src="https://placehold.co/300x200/orange/white" alt="Producto destacado" />
-				<span className="badge badge-destacado badge-tag">DESTACADO</span>
-				<button className="btn-fav active" aria-label="Quitar de favoritos"><Heart color="red"/></button>
+				<Link href={`/book-detail/${bookData.id}`}>
+					<Base64Image
+						base64Data={bookData.images.find((image) => image.isPrincipal)?.picture || ""}
+						height={400}
+						alt={`Book ${bookData.id}`}
+					/>
+				</Link>
+				<span className="badge badge-destacado badge-tag">
+					{getBookState(bookData.state).toUpperCase()}
+				</span>
+				<button className="btn-fav active" aria-label="Quitar de favoritos"><Heart color="red" /></button>
 			</div>
 			<div className="product-body">
-				<div className="product-title">Smart TV LED 55" 4K</div>
-				<div className="product-price">Gs. 3.200.000</div>
+				<div className="product-title">{bookData.title}</div>
+				<div className="product-price">{formatearGuaranies(bookData.price)}</div>
 				<div className="product-footer">
 					<div className="seller-info">
-						<img src="https://i.pravatar.cc/60?img=35" className="seller-avatar" alt="Vendedor" />
-						<span className="seller-name">Marta F.</span>
+						<Image
+							src={avatar}
+							alt="Avatar"
+							title={`Publicado por ${bookData.userName}`}
+							className="seller-avatar"
+							width="25"
+							loading="lazy"
+							style={{ marginLeft: 0 }}
+						/>
+						<span className="seller-name">{abbreviateName(bookData.userName)}</span>
 					</div>
-					<button className="btn-comprar">Comprar</button>
+					<button className="btn-comprar">
+						{getTransactionType(bookData.transactionType)}
+					</button>
 				</div>
 			</div>
 		</div>

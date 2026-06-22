@@ -6,6 +6,7 @@ import SectionTitle from "./SectionTitle";
 import { BookSection } from "@/models/enums/BookSection";
 import { IBookDTOResponse } from "@/models/interfaces/IBookResponse";
 import { getBooksServiceBySection } from "@/services/bookService";
+import Loading from "../Common/Loading/Index";
 
 const Index = ({ section }: { section: BookSection }) => {
 	const [books, setBooks] = useState<Array<IBookDTOResponse>>();
@@ -33,34 +34,31 @@ const Index = ({ section }: { section: BookSection }) => {
 
 			{/*<!-- En mobile: scroll horizontal. En desktop: grilla normal (ver d-none/d-md-flex abajo) --> */}
 			<div className="scroll-row d-flex d-md-none">
-				<div className="scroll-item">
-					<Card />
-				</div>
-				<div className="scroll-item">
-					<Card />
-				</div>
-				<div className="scroll-item">
-					<Card />
-				</div>
-				<div className="scroll-item">
-					<Card />
-				</div>
+				{
+					loading ? (<Loading />) :
+						(
+							books?.map((book) => (
+								<div className="scroll-item" key={book.id}>
+									<Card bookData={book} />
+								</div>
+							))
+						)
+
+				}
 			</div>
 
 			{/*<!-- Versión desktop en grilla --> */}
 			<div className="row g-4 d-none d-md-flex">
-				<div className="col-6 col-md-4 col-lg-3">
-					<Card />
-				</div>
-				<div className="col-6 col-md-4 col-lg-3">
-					<Card />
-				</div>
-				<div className="col-6 col-md-4 col-lg-3">
-					<Card />
-				</div>
-				<div className="col-6 col-md-4 col-lg-3">
-					<Card />
-				</div>
+				{
+					loading ? (<Loading />) :
+						(
+							books?.map((book) => (
+								<div className="col-6 col-md-4 col-lg-3" key={book.id}>
+									<Card bookData={book} />
+								</div>
+							))
+						)
+				}
 			</div>
 		</>
 	)
