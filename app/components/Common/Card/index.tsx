@@ -7,53 +7,31 @@ import { IBookDTOResponse } from "@/models/interfaces/IBookResponse";
 import Base64Image from "../ImageBase64/Index";
 import { TransactionType } from "@/models/enums/TransactionType";
 import { BookState } from "@/models/enums/BookState";
+import { Heart } from "lucide-react";
 
 type CardProps = {
 	bookData: IBookDTOResponse
 };
 
-const Index = ({ bookData }: CardProps) => {
+//const Index = ({ bookData }: CardProps) => {
+const Index = () => {
 	return (
-		<div className="card" id="6">
-			<div className={`id-${uuidv4()}`}>
-				<Link href={`/book-detail/${bookData.id}`}>
-					<Base64Image
-						base64Data={bookData.images.find((image) => image.isPrincipal)?.picture || ""}
-						height={400}
-						alt={`Book ${bookData.id}`}
-					/>
-				</Link>
+		<div className="product-card">
+			<div className="product-img-wrap">
+				<img src="https://placehold.co/300x200/orange/white" alt="Producto destacado" />
+				<span className="badge badge-destacado badge-tag">DESTACADO</span>
+				<button className="btn-fav active" aria-label="Quitar de favoritos"><Heart color="red"/></button>
 			</div>
-			<div className="card-body">
-				<h5 className="card-title mb-2">{bookData.title}</h5>
-				<hr className="mx-2" />
-				<div className="card-text">
-					<div><strong>Estado: </strong>{BookState[bookData.state]}</div>
-					<div><strong>Para: </strong>{TransactionType[bookData.transactionType]}</div>
-					<strong className="text-success d-block"></strong>
+			<div className="product-body">
+				<div className="product-title">Smart TV LED 55" 4K</div>
+				<div className="product-price">Gs. 3.200.000</div>
+				<div className="product-footer">
+					<div className="seller-info">
+						<img src="https://i.pravatar.cc/60?img=35" className="seller-avatar" alt="Vendedor" />
+						<span className="seller-name">Marta F.</span>
+					</div>
+					<button className="btn-comprar">Comprar</button>
 				</div>
-				<button type="button" className="btn btn-primary btn-lg btn-block w-100">Contactar</button>
-				<section className="mt-4">
-					<Image
-						src={avatar}
-						alt="Avatar"
-						title={`Publicado por ${bookData.userName}`}
-						className="avatar"
-						width="25"
-						loading="lazy"
-						style={{ marginLeft: 0 }}
-					/>
-					<span className="text-dark float-end pt-2" id="bookmarkContainer">
-						<Image
-							src={bookmark}
-							title="Agregar como favorito"
-							className="favourite"
-							width="25"
-							loading="lazy"
-							alt=""
-						/>
-					</span>
-				</section>
 			</div>
 		</div>
 	);

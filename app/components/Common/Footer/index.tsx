@@ -1,13 +1,13 @@
 import Image from "next/image";
 import facebookIcon from "~/public/img/facebook.svg";
 import instagramIcon from "~/public/img/instagram.svg";
-import twitterIcon from "~/public/img/twitter.svg";
+import twitterIcon from "~/public/img/twitter.png";
 
 const Index = () => {
 	return (
-		<div className="row mt-4">
+		<div className="container">
 			<div className="col-12">
-				<div className="container">
+				<div className="row mt-4">
 					<footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4">
 						<div className="col-md-4 d-flex align-items-center">
 							<span className="text-muted">© {new Date().getFullYear()} Libros Libres PY</span>
