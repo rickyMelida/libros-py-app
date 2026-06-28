@@ -4,7 +4,7 @@ import Link from "next/link";
 import { IBookDTOResponse } from "@/models/interfaces/IBookResponse";
 import Base64Image from "../ImageBase64/Index";
 import { Heart } from "lucide-react";
-import { abbreviateName, formatearGuaranies, getBookState, getTransactionType } from "@/utils/util";
+import { abbreviateName, formatToGuarani, getBookState, getTransactionType } from "@/utils/util";
 
 type CardProps = {
 	bookData: IBookDTOResponse
@@ -29,7 +29,7 @@ const Index = ({ bookData }: CardProps) => {
 			</div>
 			<div className="product-body">
 				<div className="product-title">{bookData.title}</div>
-				<div className="product-price">{formatearGuaranies(bookData.price)}</div>
+				<div className="product-price">{formatToGuarani(bookData.price)}</div>
 				<div className="product-footer">
 					<div className="seller-info">
 						<Image

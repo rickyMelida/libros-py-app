@@ -1,25 +1,6 @@
 import Image from "next/image";
 import styles from "./index.module.css";
-
-export function detectMimeType(base64: string): string {
-	const signatures: Record<string, string> = {
-		"/9j/": "image/jpeg",
-		"iVBORw0": "image/png",
-		"R0lGOD": "image/gif",
-		"UklGRi": "image/webp",
-		"Qk": "image/bmp",
-		"PHN2Zy": "image/svg+xml",
-		"AAABAA": "image/x-icon",
-	};
-
-	for (const [signature, mimeType] of Object.entries(signatures)) {
-		if (base64.startsWith(signature)) {
-			return mimeType;
-		}
-	}
-
-	return "image/jpeg";
-}
+import { detectMimeType } from "@/utils/util";
 
 interface Props {
 	base64Data: string; // sin el prefijo "data:..."
