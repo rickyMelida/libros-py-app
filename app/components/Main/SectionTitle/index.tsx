@@ -1,5 +1,6 @@
 import { BookSection } from "@/models/enums/BookSection";
 import { ChevronRight, Clock, Star } from "lucide-react";
+import Link from "next/link";
 
 const Index = ({ section }: { section: BookSection }) => {
 	const iconSection = section == BookSection.Featured
@@ -12,9 +13,14 @@ const Index = ({ section }: { section: BookSection }) => {
 	return (
 		<div className="section-title">
 			<h4> {iconSection} {title}</h4>
-			<a href="#" className="ver-todo">
+			<Link
+              href={`/books/${section}`}
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
 				Ver todo
-				<ChevronRight /></a>
+				<ChevronRight />
+
+			</Link>
 		</div>
 	)
 }

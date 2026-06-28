@@ -7,7 +7,7 @@ const Index = () => {
 			<div className="col-6 col-md-4 col-lg-3">
 				<div className="product-card">
 					<div className="position-relative">
-						<img src="https://picsum.photos/300/200?random=1" alt="Producto" />
+						<img src="https://picsum.photos/300/200?random=1" alt="Producto" className="profile-card-image"/>
 						<span className="badge bg-success badge-status position-absolute top-0 end-0 m-2">Activo</span>
 					</div>
 					<div className="p-3">

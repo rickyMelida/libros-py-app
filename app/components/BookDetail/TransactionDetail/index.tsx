@@ -22,7 +22,7 @@ const Index = ({ loading, bookDetail }: BookDetailsProp) => {
 	
 	return (
 		<div className="info-panel">
-			<h1 className="product-title-detail">Cámara mirrorless Sony A6400</h1>
+			<h1 className="product-title-detail">{bookDetail?.title}</h1>
 
 			<div className="meta-row">
 				<span><Eye /> 214 vistas</span>
@@ -33,7 +33,7 @@ const Index = ({ loading, bookDetail }: BookDetailsProp) => {
 			<div className="price-tag">{formatToGuarani(bookDetail?.price || 0)}</div>
 			<div className="price-sub">
 				<span className="badge bg-success-subtle text-success stock-badge">
-					<Check color="green" />En stock</span>
+					<Check color="green" />Disponible</span>
 				<span className="ms-2">Acepta transferencia y efectivo</span>
 			</div>
 

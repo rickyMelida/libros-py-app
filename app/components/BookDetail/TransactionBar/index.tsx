@@ -3,7 +3,7 @@ const Index = () => {
 		<div className="mobile-buy-bar">
 			<div className="flex-grow-1">
 				<div className="price-tag-mini">Gs. 4.500.000</div>
-				<div className="seller-stat" style={{ fontSize: ".7rem" }}>Stock disponible</div>
+				<div className="seller-stat" style={{ fontSize: ".7rem" }}>Disponible</div>
 			</div>
 			<button className="btn-fav-detail"
 				aria-label="Agregar a favoritos"

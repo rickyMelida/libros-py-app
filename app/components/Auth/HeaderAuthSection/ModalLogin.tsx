@@ -6,7 +6,6 @@ import googleIcon from "~/public/img/google.png";
 import { Modal } from "react-bootstrap";
 import Image from "next/image";
 import { AuthMethod } from "@/utils/constants/Generic";
-import { useRouter } from "next/router";
 import Link from "next/link";
 
 const ModalLogin: React.FC<IHandle> = ({ handleValue, value }) => {

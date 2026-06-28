@@ -11,7 +11,6 @@ type CardProps = {
 };
 
 const Index = ({ bookData }: CardProps) => {
-	console.log({ bookData })
 	return (
 		<div className="product-card">
 			<div className="product-img-wrap">
