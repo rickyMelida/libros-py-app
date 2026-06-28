@@ -33,7 +33,6 @@ const Index = ({ bookId }: { bookId: number }) => {
 	return (
 		<>
 			<div className="container">
-
 				<div className="row g-4 mt-2">
 					<div className="col-12 col-lg-7">
 						<BookImages loading={loading} bookDetail={bookDetail} />
